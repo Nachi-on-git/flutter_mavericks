@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+import 'config/environment.dart';
+
+void main() async{
+  await dotenv.load(
+    fileName: Environment.fileName,
+  );
   runApp(const MyApp());
 }
 
