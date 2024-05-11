@@ -3,7 +3,7 @@ import 'http_service.dart';
 
 class AuthService {
   HttpService httpService = HttpService();
-
+  
   Future userLogin(
     String email,
     String password,
@@ -15,6 +15,15 @@ class AuthService {
     return await httpService.doPost(
       path: loginUrl,
       body: body,
+    );
+  }
+
+  Future getUserDetails(
+  ) async {
+    return await httpService.doGet(
+      path: getUserDetailsApi,
+      params: {},
+      tokenRequired: true
     );
   }
 }

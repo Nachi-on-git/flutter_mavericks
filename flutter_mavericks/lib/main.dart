@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_mavericks/screens/onboarding/splash_screen.dart';
+import 'package:flutter_mavericks/screens/dashboard.dart';
+import 'package:flutter_mavericks/screens/login_screen.dart';
 import 'config/environment.dart';
 
-void main() async {
+void main() async{
   await dotenv.load(
     fileName: Environment.fileName,
   );
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(),
+      home: const Dashboard(),
     );
   }
 }

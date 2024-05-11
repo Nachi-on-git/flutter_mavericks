@@ -1,9 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mavericks/design_system/color_system.dart';
 import 'package:flutter_mavericks/design_system/scalesystem.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
-
+import 'package:flutter_mavericks/models/http_response.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../services/auth_services.dart';
+import 'dashboard.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,21 +21,39 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
   bool _showPassword = false;
   AuthService authService = AuthService();
-  bool emableLoginButton = false;
+  bool isLoading = false;
 
   setUserId() {
     setState(() {});
-    if (passwordController.text.isNotEmpty && loginIdController.text.isNotEmpty) {
-      emableLoginButton = true;
-    }
   }
 
   userLogin() async {
-    var response = await authService.userLogin(
+    setState(() {
+      isLoading = true;
+    });
+    HttpResponses response = await authService.userLogin(
       loginIdController.text.trim(),
       passwordController.text.trim(),
     );
-    print(response);
+    if (response.status!) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', response.data['token']);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const Dashboard()),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    loginIdController.clear();
+    passwordController.clear();
+    super.dispose();
   }
 
   @override
@@ -60,7 +82,9 @@ class _LoginScreenState extends State<LoginScreen> {
             //textforfield for email
             Container(
               padding: const EdgeInsets.symmetric(horizontal: SizeSystem.size8),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(SizeSystem.size12), border: Border.all()),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(SizeSystem.size12),
+                  border: Border.all()),
               child: TextFormField(
                 cursorColor: ColorSystem.primaryColor,
                 keyboardType: TextInputType.emailAddress,
@@ -69,7 +93,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (email!.isEmpty) {
                     return 'Email is required';
                   } else {
-                    if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(email)) {
+                    if (!RegExp(
+                            r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+                        .hasMatch(email)) {
                       return 'Enter a valid email.';
                     }
                   }
@@ -91,7 +117,9 @@ class _LoginScreenState extends State<LoginScreen> {
             //textforfield for password
             Container(
               padding: const EdgeInsets.symmetric(horizontal: SizeSystem.size8),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(SizeSystem.size12), border: Border.all()),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(SizeSystem.size12),
+                  border: Border.all()),
               child: TextFormField(
                 onChanged: (value) {
                   setState(() {});
@@ -134,30 +162,39 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: SizeSystem.size16,
             ),
-            InkWell(
-              onTap: () async {
-                if (passwordController.text.isNotEmpty && loginIdController.text.isNotEmpty) {
-                  await userLogin();
-                } else {}
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.symmetric(
-                  vertical: SizeSystem.size12,
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(SizeSystem.size12),
-                    color: passwordController.text.isNotEmpty &&
-                            RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(loginIdController.text)
-                        ? ColorSystem.primaryColor
-                        : Colors.grey),
-                child: const Center(
-                    child: Text(
-                  'Login',
-                  style: TextStyle(color: ColorSystem.white, fontWeight: FontWeight.bold),
-                )),
-              ),
-            )
+            isLoading
+                ? const CircularProgressIndicator(
+                    color: ColorSystem.primaryColor,
+                  )
+                : InkWell(
+                    onTap: () async {
+                      if (passwordController.text.isNotEmpty &&
+                          loginIdController.text.isNotEmpty) {
+                        await userLogin();
+                      } else {}
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: SizeSystem.size12,
+                      ),
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(SizeSystem.size12),
+                          color: passwordController.text.isNotEmpty &&
+                                  RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+                                      .hasMatch(loginIdController.text)
+                              ? ColorSystem.primaryColor
+                              : Colors.grey),
+                      child: const Center(
+                          child: Text(
+                        'Login',
+                        style: TextStyle(
+                            color: ColorSystem.white,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  )
           ],
         ),
       ),
