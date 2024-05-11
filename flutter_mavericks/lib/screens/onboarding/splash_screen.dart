@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mavericks/screens/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../dashboard.dart';
 import 'onboarding_view.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,16 +15,31 @@ class SplashScreen extends StatefulWidget {
 }
 
 class SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Timer(const Duration(seconds: 2), () {
+  Future<void> destination() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('isVisitedOnboarding') == true) {
+      if (prefs.getString('token') != null) {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const Dashboard(),
+        ));
+      } else {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const LoginScreen(),
+        ));
+      }
+    } else {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const OnboardingView(),
         ),
       );
-    });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Timer(const Duration(seconds: 2), () => destination());
   }
 
   @override

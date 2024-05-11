@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mavericks/screens/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../design_system/color_system.dart';
 import '../../design_system/scalesystem.dart';
@@ -48,11 +50,15 @@ class OnboardingViewState extends State<OnboardingView> {
                   Align(
                     alignment: Alignment.topRight,
                     child: TextButton(
-                      onPressed: () => Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const HomeScreen(),
-                        ),
-                      ),
+                      onPressed: () async {
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        await prefs.setBool('isVisitedOnboarding', true);
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
+                      },
                       child: const Text(
                         'Skip',
                         style: TextStyle(
@@ -91,16 +97,18 @@ class OnboardingViewState extends State<OnboardingView> {
                   ),
                   const SizedBox(height: SizeSystem.size20),
                   InkWell(
-                    onTap: () {
+                    onTap: () async {
                       if (currentPage < 2) {
                         _pageController.nextPage(
                           duration: const Duration(milliseconds: 500),
                           curve: Curves.ease,
                         );
                       } else {
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        await prefs.setBool('isVisitedOnboarding', true);
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
+                            builder: (context) => const LoginScreen(),
                           ),
                         );
                       }

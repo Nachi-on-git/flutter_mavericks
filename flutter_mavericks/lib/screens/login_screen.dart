@@ -82,9 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
             //textforfield for email
             Container(
               padding: const EdgeInsets.symmetric(horizontal: SizeSystem.size8),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(SizeSystem.size12),
-                  border: Border.all()),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(SizeSystem.size12), border: Border.all()),
               child: TextFormField(
                 cursorColor: ColorSystem.primaryColor,
                 keyboardType: TextInputType.emailAddress,
@@ -93,9 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (email!.isEmpty) {
                     return 'Email is required';
                   } else {
-                    if (!RegExp(
-                            r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
-                        .hasMatch(email)) {
+                    if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(email)) {
                       return 'Enter a valid email.';
                     }
                   }
@@ -117,9 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
             //textforfield for password
             Container(
               padding: const EdgeInsets.symmetric(horizontal: SizeSystem.size8),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(SizeSystem.size12),
-                  border: Border.all()),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(SizeSystem.size12), border: Border.all()),
               child: TextFormField(
                 onChanged: (value) {
                   setState(() {});
@@ -168,8 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   )
                 : InkWell(
                     onTap: () async {
-                      if (passwordController.text.isNotEmpty &&
-                          loginIdController.text.isNotEmpty) {
+                      if (passwordController.text.isNotEmpty && loginIdController.text.isNotEmpty) {
                         await userLogin();
                       } else {}
                     },
@@ -179,19 +172,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         vertical: SizeSystem.size12,
                       ),
                       decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(SizeSystem.size12),
+                          borderRadius: BorderRadius.circular(SizeSystem.size12),
                           color: passwordController.text.isNotEmpty &&
-                                  RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
-                                      .hasMatch(loginIdController.text)
+                                  RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(loginIdController.text)
                               ? ColorSystem.primaryColor
                               : Colors.grey),
                       child: const Center(
                           child: Text(
                         'Login',
-                        style: TextStyle(
-                            color: ColorSystem.white,
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: ColorSystem.white, fontWeight: FontWeight.bold),
                       )),
                     ),
                   )
