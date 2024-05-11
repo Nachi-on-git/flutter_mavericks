@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mavericks/design_system/scalesystem.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/http_response.dart';
 import '../services/auth_services.dart';
@@ -15,51 +16,56 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   AuthService authService = AuthService();
   bool isLoading = false;
+  String? userName = '';
 
-
-  getUserDetails () async {
+  getUserDetails() async {
     setState(() {
       isLoading = true;
     });
-    HttpResponses response = await authService.getUserDetails(
-    );
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userToken = prefs.getString('token');
+    HttpResponses response = await authService.getUserDetails(userToken ?? '');
     if (response.status!) {
-      
+      setState(() {
+        userName = response.data['firstName'];
+      });
     }
     setState(() {
       isLoading = false;
     });
   }
+
   @override
   void initState() {
-    // TODO: implement initState
     getUserDetails();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: SizeSystem.size24, horizontal: SizeSystem.size24),
+          padding: const EdgeInsets.symmetric(
+              vertical: SizeSystem.size24, horizontal: SizeSystem.size24),
           child: Column(
             children: [
               Row(
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         'Hello,',
                         style: TextStyle(
                             color: Colors.black, fontSize: SizeSystem.size16),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: SizeSystem.size8,
                       ),
                       Text(
-                        'UserName',
-                        style: TextStyle(
+                        userName ?? '',
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: SizeSystem.size32,
                         ),
@@ -96,14 +102,16 @@ class _DashboardState extends State<Dashboard> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: SizeSystem.size16, vertical: SizeSystem.size12),
+                            horizontal: SizeSystem.size16,
+                            vertical: SizeSystem.size12),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
                             Text(
                               'Timesheet',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: SizeSystem.size24),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: SizeSystem.size24),
                             ),
                             Text(
                               'Get your timesheets powered with HRMS',
@@ -115,9 +123,10 @@ class _DashboardState extends State<Dashboard> {
                     ],
                   ),
                 ),
-              )
-              ,
-              const SizedBox(height: SizeSystem.size24,),
+              ),
+              const SizedBox(
+                height: SizeSystem.size24,
+              ),
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(SizeSystem.size12),
@@ -134,14 +143,16 @@ class _DashboardState extends State<Dashboard> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: SizeSystem.size16, vertical: SizeSystem.size12),
+                            horizontal: SizeSystem.size16,
+                            vertical: SizeSystem.size12),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
                             Text(
                               'Appraisals',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: SizeSystem.size24),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: SizeSystem.size24),
                             ),
                             Text(
                               'Manage & track your appraisals here',

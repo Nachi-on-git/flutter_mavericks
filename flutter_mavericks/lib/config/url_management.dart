@@ -1,3 +1,3 @@
 const String loginUrl = "/hrms/login";
-const String getUserDetailsApi = "/hrms-user/get-employee-details/1";
+const String getUserDetailsApi = "/hrms-user/get-employee-details";
 

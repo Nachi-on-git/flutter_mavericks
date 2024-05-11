@@ -1,11 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mavericks/screens/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../design_system/color_system.dart';
 import '../../design_system/scalesystem.dart';
 import '../../design_system/sizesystem.dart';
-import '../home_screen.dart';
 
 class OnboardingView extends StatefulWidget {
   const OnboardingView({Key? key}) : super(key: key);

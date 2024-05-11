@@ -18,7 +18,13 @@ class AuthService {
     );
   }
 
-  Future getUserDetails() async {
-    return await httpService.doGet(path: getUserDetailsApi, params: {}, tokenRequired: true);
+  Future getUserDetails(String userToken) async {
+    return await httpService.doGet(
+      path: getUserDetailsApi,
+      params: {
+        'token': userToken,
+      },
+      tokenRequired: true,
+    );
   }
 }

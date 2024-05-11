@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_mavericks/screens/dashboard.dart';
-import 'package:flutter_mavericks/screens/login_screen.dart';
 import 'package:flutter_mavericks/screens/onboarding/splash_screen.dart';
 import 'config/environment.dart';
 
