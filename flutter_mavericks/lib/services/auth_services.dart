@@ -1,11 +1,9 @@
-import 'package:flutter_mavericks/models/http_response.dart';
-
 import '../config/url_management.dart';
 import 'http_service.dart';
 
 class AuthService {
   HttpService httpService = HttpService();
-  
+
   Future userLogin(
     String email,
     String password,
@@ -17,6 +15,16 @@ class AuthService {
     return await httpService.doPost(
       path: loginUrl,
       body: body,
+    );
+  }
+
+  Future getUserDetails(String userToken) async {
+    return await httpService.doGet(
+      path: getUserDetailsApi,
+      params: {
+        'token': userToken,
+      },
+      tokenRequired: true,
     );
   }
 }
