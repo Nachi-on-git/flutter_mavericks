@@ -7,7 +7,9 @@ class Timesheet {
   factory Timesheet.fromJson(Map<String, dynamic> json) {
     return Timesheet(
       projectName: json['projectName'] ?? '',
-      projectData: json['projectDetails'] != null ? ProjectDetails.fromJson(json['projectDetails']) : ProjectDetails.fromJson({}),
+      projectData: json['projectDetails'] != null
+          ? ProjectDetails.fromJson(json['projectDetails'])
+          : ProjectDetails.fromJson({}),
     );
   }
 }
@@ -18,19 +20,22 @@ class ProjectDetails {
   int leaves;
   int extraWorkingDays;
   double totalWorkingHours;
+  int totalWorkingDays;
 
   ProjectDetails(
       {required this.totalBillableHours,
       required this.extraWorkingDays,
       required this.leaves,
       required this.totalNonBillableHours,
-      required this.totalWorkingHours});
+      required this.totalWorkingHours,
+      required this.totalWorkingDays});
   factory ProjectDetails.fromJson(Map<String, dynamic> json) {
     return ProjectDetails(
         totalBillableHours: json['totalBillableHours'] ?? 0.0,
         totalNonBillableHours: json['totalNonBillableHours'] ?? 0.0,
         leaves: json['leaves'] ?? 0,
         extraWorkingDays: json['extraWorkingDays'] ?? 0,
-        totalWorkingHours : json['totalWorkingHours'] ?? 0.0);
+        totalWorkingHours: json['totalWorkingHours'] ?? 0.0,
+        totalWorkingDays: json['totalWorkingDays'] ?? 0);
   }
 }

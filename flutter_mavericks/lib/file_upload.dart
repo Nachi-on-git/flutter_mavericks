@@ -64,9 +64,6 @@ class _ExportFileState extends State<ExportFile> {
     if (result != null) {
       var bytes = File(result.files[0].path!).readAsBytesSync();
       var excel = Excel.decodeBytes(bytes);
-      double totalNonBillableHours = 0.0;
-      double totalBillableHours = 0.0;
-      double totalHours = 0;
       Timesheet projectNameData;
       for (var table in excel.tables.keys) {
         for (var row in excel.tables[table]!.rows) {
@@ -87,14 +84,10 @@ class _ExportFileState extends State<ExportFile> {
                 } else {
                   Timesheet details = timesheet.firstWhere(
                       (element) => element.projectName == value.toString(),
-                      orElse: () => Timesheet(
-                          projectName: null,
-                          projectData: ProjectDetails(
-                              totalBillableHours: 0.0,
-                              extraWorkingDays: 0,
-                              leaves: 0,
-                              totalNonBillableHours: 0.0,
-                              totalWorkingHours: 0.0)));
+                      orElse: () => Timesheet.fromJson({
+                            'projectName': value.toString(),
+                            'projectDetails': null
+                          }));
                   if (details.projectName == null) {
                     timesheet.add(Timesheet.fromJson({
                       'projectName': value.toString(),
@@ -105,14 +98,10 @@ class _ExportFileState extends State<ExportFile> {
               }
               projectNameData = timesheet.firstWhere(
                   (element) => element.projectName == row[2]!.value.toString(),
-                  orElse: () => Timesheet(
-                      projectName: null,
-                      projectData: ProjectDetails(
-                          totalBillableHours: 0.0,
-                          extraWorkingDays: 0,
-                          leaves: 0,
-                          totalNonBillableHours: 0.0,
-                          totalWorkingHours: 0.0)));
+                  orElse: () => Timesheet.fromJson({
+                        'projectName': value.toString(),
+                        'projectDetails': null
+                      }));
 
               if (cell.columnIndex == 12) {
                 projectNameData.projectData.totalWorkingHours +=

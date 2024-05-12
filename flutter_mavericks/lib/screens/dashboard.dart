@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_mavericks/design_system/scalesystem.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
+import 'package:flutter_mavericks/screens/timesheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/http_response.dart';
@@ -29,6 +31,8 @@ class _DashboardState extends State<Dashboard> {
       setState(() {
         userName = response.data['firstName'];
       });
+      print("user details : ${response.data}");
+      prefs.setInt('empId', response.data['id']);
     }
     setState(() {
       isLoading = false;
@@ -86,41 +90,50 @@ class _DashboardState extends State<Dashboard> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,
               ),
-              Container(
-                decoration: BoxDecoration(
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Timesheets()),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(SizeSystem.size12),
+                      border:
+                          Border.all(color: Colors.black45.withOpacity(0.3))),
+                  child: ClipRRect(
                     borderRadius: BorderRadius.circular(SizeSystem.size12),
-                    border: Border.all(color: Colors.black45.withOpacity(0.3))),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(SizeSystem.size12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/images/timesheet_dashboard.png',
-                        fit: BoxFit.none,
-                        scale: ScaleSystem.scale2,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: SizeSystem.size16,
-                            vertical: SizeSystem.size12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              'Timesheet',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: SizeSystem.size24),
-                            ),
-                            Text(
-                              'Get your timesheets powered with HRMS',
-                              style: TextStyle(fontSize: SizeSystem.size14),
-                            )
-                          ],
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          'assets/images/timesheet_dashboard.png',
+                          fit: BoxFit.none,
+                          scale: ScaleSystem.scale2,
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: SizeSystem.size16,
+                              vertical: SizeSystem.size12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                'Timesheet',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: SizeSystem.size24),
+                              ),
+                              Text(
+                                'Get your timesheets powered with HRMS',
+                                style: TextStyle(fontSize: SizeSystem.size14),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

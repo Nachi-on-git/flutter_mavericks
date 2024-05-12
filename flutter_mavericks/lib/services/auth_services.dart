@@ -3,7 +3,6 @@ import 'http_service.dart';
 
 class AuthService {
   HttpService httpService = HttpService();
-
   Future userLogin(
     String email,
     String password,
