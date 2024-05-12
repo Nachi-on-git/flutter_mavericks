@@ -67,7 +67,8 @@ Steps :
     ![image](https://github.com/Nachi-on-git/flutter_mavericks/assets/70372348/3580ba83-7421-45bc-b6d1-63c9420bbddb)
 
 
-
+Please find Figma link : 
+https://www.figma.com/design/GZmklRd5m5YEUwYnpaedWz/HRMS-REVAMP?node-id=28-346&t=ODo1SsK9vvoQhXyo-0
 
 
 
