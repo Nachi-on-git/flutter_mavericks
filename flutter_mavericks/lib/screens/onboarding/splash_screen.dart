@@ -5,8 +5,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../appraisal_info_screen.dart';
 import '../dashboard.dart';
+import '../login_screen.dart';
 import 'onboarding_view.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -27,8 +27,7 @@ class SplashScreenState extends State<SplashScreen> {
         ));
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          // builder: (context) => const LoginScreen(),
-          builder: (context) => const StartAppraisalInfoScreen(),
+          builder: (context) => const LoginScreen(),
         ));
       }
     } else {

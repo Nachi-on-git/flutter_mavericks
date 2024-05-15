@@ -5,7 +5,10 @@ import 'package:flutter_mavericks/design_system/sizesystem.dart';
 import '../design_system/color_system.dart';
 
 class StartAppraisalInfoScreen extends StatelessWidget {
-  const StartAppraisalInfoScreen({super.key});
+  const StartAppraisalInfoScreen({super.key, required this.employeeName, required this.employeeDesignation});
+
+  final String employeeName;
+  final String employeeDesignation;
 
   @override
   Widget build(BuildContext context) {
