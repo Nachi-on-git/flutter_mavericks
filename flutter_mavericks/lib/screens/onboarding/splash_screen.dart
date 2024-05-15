@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../test_file.dart';
+import '../appraisal_info_screen.dart';
 import '../dashboard.dart';
 import 'onboarding_view.dart';
 
@@ -28,7 +28,7 @@ class SplashScreenState extends State<SplashScreen> {
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           // builder: (context) => const LoginScreen(),
-          builder: (context) => const TestFile(),
+          builder: (context) => const StartAppraisalInfoScreen(),
         ));
       }
     } else {
