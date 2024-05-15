@@ -14,8 +14,7 @@ class ManagerTimeSheetView extends StatefulWidget {
   State<ManagerTimeSheetView> createState() => _ManagerTimeSheetViewState();
 }
 
-class _ManagerTimeSheetViewState extends State<ManagerTimeSheetView>
-    with SingleTickerProviderStateMixin {
+class _ManagerTimeSheetViewState extends State<ManagerTimeSheetView> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   bool isLoading = false;
 
@@ -96,36 +95,28 @@ class _ManagerTimeSheetViewState extends State<ManagerTimeSheetView>
               SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child: TabBarView(controller: _tabController, children: [
-                  Column(
+                  const Column(
                     children: [TimesheetDetails()],
                   ),
                   Column(
                     children: [
                       Container(
                           margin: const EdgeInsets.all(PaddingSystem.padding20),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: PaddingSystem.padding20,
-                              vertical: PaddingSystem.padding05),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: ColorSystem.gray.withOpacity(0.4)),
-                              borderRadius: BorderRadius.circular(10)),
+                          padding: const EdgeInsets.symmetric(horizontal: PaddingSystem.padding20, vertical: PaddingSystem.padding05),
+                          decoration:
+                              BoxDecoration(border: Border.all(color: ColorSystem.gray.withOpacity(0.4)), borderRadius: BorderRadius.circular(10)),
                           child: Column(children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Padding(
-                                    padding: EdgeInsets.only(
-                                        top: PaddingSystem.padding10,
-                                        left: PaddingSystem.padding10,
-                                        right: PaddingSystem.padding10),
-                                    child:
-                                        Image.asset('assets/images/emp.png')),
-                                Text(
+                                    padding: const EdgeInsets.only(
+                                        top: PaddingSystem.padding10, left: PaddingSystem.padding10, right: PaddingSystem.padding10),
+                                    child: Image.asset('assets/images/emp.png')),
+                                const Text(
                                   'Nachiket Labade',
-                                  style: TextStyle(
-                                      fontSize: SizeSystem.size20,
-                                      fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontSize: SizeSystem.size20, fontWeight: FontWeight.bold),
                                 )
                               ],
                             ),

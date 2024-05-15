@@ -3,9 +3,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mavericks/screens/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../test_file.dart';
 import '../dashboard.dart';
 import 'onboarding_view.dart';
 
@@ -27,7 +27,8 @@ class SplashScreenState extends State<SplashScreen> {
         ));
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => LoginScreen(),
+          // builder: (context) => const LoginScreen(),
+          builder: (context) => const TestFile(),
         ));
       }
     } else {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_mavericks/design_system/scalesystem.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
 import 'package:flutter_mavericks/screens/login_screen.dart';
@@ -56,8 +55,7 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-              vertical: SizeSystem.size24, horizontal: SizeSystem.size24),
+          padding: const EdgeInsets.symmetric(vertical: SizeSystem.size24, horizontal: SizeSystem.size24),
           child: Column(
             children: [
               Row(
@@ -67,14 +65,13 @@ class _DashboardState extends State<Dashboard> {
                     children: [
                       const Text(
                         'Hello,',
-                        style: TextStyle(
-                            color: Colors.black, fontSize: SizeSystem.size16),
+                        style: TextStyle(color: Colors.black, fontSize: SizeSystem.size16),
                       ),
                       const SizedBox(
                         height: SizeSystem.size8,
                       ),
                       Text(
-                        userName ?? '',
+                        userName,
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: SizeSystem.size32,
@@ -85,8 +82,7 @@ class _DashboardState extends State<Dashboard> {
                   const Spacer(),
                   IconButton(
                       onPressed: () async {
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
                         prefs.remove('empId');
                         prefs.remove('token');
                         prefs.remove('employee_type');
@@ -94,7 +90,7 @@ class _DashboardState extends State<Dashboard> {
                           builder: (context) => const LoginScreen(),
                         ));
                       },
-                      icon: Icon(Icons.logout))
+                      icon: const Icon(Icons.logout))
                 ],
               ),
               SizedBox(
@@ -102,25 +98,21 @@ class _DashboardState extends State<Dashboard> {
               ),
               GestureDetector(
                 onTap: () {
-                  if(empRole == null || empRole == 'employee'){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Timesheets()),
-                  );   
-                  }else{
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ManagerTimeSheetView()),
-                  );
+                  if (empRole == null || empRole == 'employee') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Timesheets()),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ManagerTimeSheetView()),
+                    );
                   }
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(SizeSystem.size12),
-                      border:
-                          Border.all(color: Colors.black45.withOpacity(0.3))),
+                      borderRadius: BorderRadius.circular(SizeSystem.size12), border: Border.all(color: Colors.black45.withOpacity(0.3))),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(SizeSystem.size12),
                     child: Column(
@@ -131,18 +123,14 @@ class _DashboardState extends State<Dashboard> {
                           fit: BoxFit.none,
                           scale: ScaleSystem.scale2,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: SizeSystem.size16,
-                              vertical: SizeSystem.size12),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: SizeSystem.size16, vertical: SizeSystem.size12),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
                                 'Timesheet',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: SizeSystem.size24),
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: SizeSystem.size24),
                               ),
                               Text(
                                 'Get your timesheets powered with HRMS',
@@ -160,9 +148,8 @@ class _DashboardState extends State<Dashboard> {
                 height: SizeSystem.size24,
               ),
               Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(SizeSystem.size12),
-                    border: Border.all(color: Colors.black45.withOpacity(0.3))),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(SizeSystem.size12), border: Border.all(color: Colors.black45.withOpacity(0.3))),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(SizeSystem.size12),
                   child: Column(
@@ -173,18 +160,14 @@ class _DashboardState extends State<Dashboard> {
                         fit: BoxFit.none,
                         scale: ScaleSystem.scale2,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: SizeSystem.size16,
-                            vertical: SizeSystem.size12),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: SizeSystem.size16, vertical: SizeSystem.size12),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               'Appraisals',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: SizeSystem.size24),
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: SizeSystem.size24),
                             ),
                             Text(
                               'Manage & track your appraisals here',
