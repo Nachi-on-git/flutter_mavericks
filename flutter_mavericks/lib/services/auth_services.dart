@@ -8,8 +8,8 @@ class AuthService {
     String password,
   ) async {
     Map<String, dynamic>? body = {
-      'email': 'reeva@gmail.com',
-      'password': 'Reeva@123',
+      'email': email,
+      'password': password,
     };
     return await httpService.doPost(
       path: loginUrl,

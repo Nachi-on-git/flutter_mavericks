@@ -21,6 +21,7 @@ class ProjectDetails {
   int extraWorkingDays;
   double totalWorkingHours;
   int totalWorkingDays;
+  String? projectName;
 
   ProjectDetails(
       {required this.totalBillableHours,
@@ -28,7 +29,8 @@ class ProjectDetails {
       required this.leaves,
       required this.totalNonBillableHours,
       required this.totalWorkingHours,
-      required this.totalWorkingDays});
+      required this.totalWorkingDays,
+      this.projectName});
   factory ProjectDetails.fromJson(Map<String, dynamic> json) {
     return ProjectDetails(
         totalBillableHours: json['totalBillableHours'] ?? 0.0,
@@ -36,6 +38,7 @@ class ProjectDetails {
         leaves: json['leaves'] ?? 0,
         extraWorkingDays: json['extraWorkingDays'] ?? 0,
         totalWorkingHours: json['totalWorkingHours'] ?? 0.0,
-        totalWorkingDays: json['totalWorkingDays'] ?? 0);
+        totalWorkingDays: json['totalWorkingDays'] ?? 0,
+        projectName: json['projectName'] ?? '');
   }
 }

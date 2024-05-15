@@ -85,7 +85,7 @@ class HttpService {
         case 201:
         case 204:
           return HttpResponses(
-              status: data['status'] == 'true' ? true : false, message: data['message'], data: data['data'] ?? '');
+              status: data['status'] == true ? true : false, message: data['message'], data: data['data'] ?? '');
         case 401: // token expired
         case 403:
           return HttpResponses(status: false, message: data['message']);

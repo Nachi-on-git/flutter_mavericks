@@ -9,9 +9,11 @@ class TimesheetService {
         path: submitTimesheetApi, body: timesheet, tokenRequired: true);
   }
 
-  getTimesheetDetails(int id) async {
+  getTimesheetDetails(int id, String month) async {
     return await httpService.doGet(
-        path: getTimesheetApi, params: {'id': id.toString()}, tokenRequired: true);
+        path: getTimesheetApi,
+        params: {'id': id.toString(), 'month': month},
+        tokenRequired: true);
   }
 
   getMenteesTimesheet(String id) async {

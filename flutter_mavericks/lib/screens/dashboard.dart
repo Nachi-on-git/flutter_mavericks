@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mavericks/design_system/scalesystem.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
+import 'package:flutter_mavericks/screens/login_screen.dart';
 import 'package:flutter_mavericks/screens/timesheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/http_response.dart';
 import '../services/auth_services.dart';
+import 'manager_timesheet.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -18,7 +20,8 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   AuthService authService = AuthService();
   bool isLoading = false;
-  String? userName = '';
+  String userName = '';
+  String? empRole;
 
   getUserDetails() async {
     setState(() {
@@ -26,13 +29,16 @@ class _DashboardState extends State<Dashboard> {
     });
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userToken = prefs.getString('token');
+    print(userToken);
     HttpResponses response = await authService.getUserDetails(userToken ?? '');
     if (response.status!) {
       setState(() {
         userName = response.data['firstName'];
+        empRole = response.data['employeeRole'];
       });
       print("user details : ${response.data}");
       prefs.setInt('empId', response.data['id']);
+      prefs.setString('employeeRole', response.data['employeeRole']);
     }
     setState(() {
       isLoading = false;
@@ -77,14 +83,18 @@ class _DashboardState extends State<Dashboard> {
                     ],
                   ),
                   const Spacer(),
-                  Column(
-                    children: [
-                      Image.asset(
-                        'assets/images/dashboard_bell.png',
-                        scale: ScaleSystem.scale2,
-                      )
-                    ],
-                  )
+                  IconButton(
+                      onPressed: () async {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.remove('empId');
+                        prefs.remove('token');
+                        prefs.remove('employee_type');
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ));
+                      },
+                      icon: Icon(Icons.logout))
                 ],
               ),
               SizedBox(
@@ -92,10 +102,19 @@ class _DashboardState extends State<Dashboard> {
               ),
               GestureDetector(
                 onTap: () {
+                  if(empRole == null || empRole == 'employee'){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Timesheets()),
+                    MaterialPageRoute(
+                        builder: (context) => const Timesheets()),
+                  );   
+                  }else{
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ManagerTimeSheetView()),
                   );
+                  }
                 },
                 child: Container(
                   decoration: BoxDecoration(

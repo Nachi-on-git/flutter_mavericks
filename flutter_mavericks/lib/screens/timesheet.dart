@@ -8,6 +8,7 @@ import 'package:flutter_mavericks/design_system/padding_system.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
 import 'package:flutter_mavericks/models/http_response.dart';
 import 'package:flutter_mavericks/models/timehseet.dart';
+import 'package:flutter_mavericks/screens/timesheet_details.dart';
 import 'package:flutter_mavericks/services/timesheet_service.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,11 +27,18 @@ class _TimesheetsState extends State<Timesheets> {
   int empId = 0;
   TimesheetService timesheetService = TimesheetService();
   List<Timesheet> myTimesheets = [];
+  bool processing = false;
+  ProjectDetails? projectDetails;
+  bool timeSheetFound = false;
+  String formattedDate = '';
 
   getEmpid() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     empId = prefs.getInt('empId') ?? 0;
     print("empId : $empId");
+    setState(() {
+      formattedDate = DateFormat('MMM yyyy').format(DateTime.now());
+    });
   }
 
   // get days in month without weekends
@@ -71,6 +79,9 @@ class _TimesheetsState extends State<Timesheets> {
   void submitTimesheet() async {
     HttpResponses response;
     if (timesheets.isNotEmpty) {
+      String month =
+          "${dateFormatInput.parse(dates[0].toString()).year}-${dateFormatInput.parse(dates[0].toString()).month}";
+
       for (var timesheet in timesheets) {
         response = await timesheetService.submitTimesheetDetails({
           "employeeId": empId,
@@ -81,8 +92,7 @@ class _TimesheetsState extends State<Timesheets> {
           "extraWorkingDays": timesheet.projectData.extraWorkingDays,
           "comments": "N/A",
           "totalWorkingDays": timesheet.projectData.totalWorkingDays,
-          "month":
-              "${dateFormatInput.parse(dates[0].toString()).year - dateFormatInput.parse(dates[0].toString()).month}"
+          "month": month
         });
         if (response.status!) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -93,19 +103,39 @@ class _TimesheetsState extends State<Timesheets> {
             content: Text("${response.message}"),
           ));
         }
+
+        setState(() {
+          processing = false;
+        });
       }
     }
   }
 
   void getTimesheet() async {
-    HttpResponses response = await timesheetService.getTimesheetDetails(empId);
+    HttpResponses response =
+        await timesheetService.getTimesheetDetails(empId, '2024-02');
     if (response.status!) {
       var data = response.data;
       print(data);
+      if (data.isNotEmpty) {
+        // setState(() {
+        projectDetails = ProjectDetails.fromJson({
+          "projectName": data['projectName'],
+          "leaves": data['leaves'],
+          "totalBillableHours": data['totalBillableHours'],
+          "totalNonBillableHours": data['totalNonBillableHours'],
+          'extraWorkingDays': data['extraWorkingDays'],
+          'totalWorkingHours':
+              data['totalBillableHours'] + data['totalNonBillableHours'],
+          'totalWorkingDays': data['totalWorkingDays']
+        });
+        timeSheetFound = true;
+        // });
+      }
     } else {
-         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("${response.message}"),
-          ));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("${response.message}"),
+      ));
     }
   }
 
@@ -116,6 +146,9 @@ class _TimesheetsState extends State<Timesheets> {
     );
     print("result : $result");
     if (result != null) {
+      setState(() {
+        processing = true;
+      });
       var bytes = File(result.files[0].path!).readAsBytesSync();
       var excelFile = Excel.decodeBytes(bytes);
       Timesheet singleTimesheetDetails;
@@ -205,42 +238,128 @@ class _TimesheetsState extends State<Timesheets> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Timesheets'),
+        backgroundColor: ColorSystem.white,
+        title: const Text('Timesheets'),
       ),
-      body: Center(
-          child: Padding(
-              padding: EdgeInsets.all(PaddingSystem.padding10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('No timesheet found'),
-                  Text(
-                      'You need to upload your timesheets to view them into our systems'),
-                  GestureDetector(
+      backgroundColor: ColorSystem.white,
+      body: Column(children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  size: SizeSystem.size20,
+                )),
+            Text('$formattedDate'),
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: SizeSystem.size20,
+                )),
+          ],
+        ),
+        processing
+            ? Center(
+                child: Container(
+                    margin: const EdgeInsets.all(PaddingSystem.padding40),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: PaddingSystem.padding50),
+                            child: Image.asset('assets/images/processing.png'),
+                          ),
+                          const SizedBox(
+                            height: PaddingSystem.padding30,
+                          ),
+                          const Text(
+                            'We are processing',
+                            style: TextStyle(
+                                fontSize: SizeSystem.size20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: PaddingSystem.padding20,
+                          ),
+                          const Text(
+                            'Your timesheet is being processed in our system please wait for a while',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: ColorSystem.gray,
+                                fontSize: SizeSystem.size14),
+                          ),
+                          const SizedBox(
+                            height: PaddingSystem.padding24,
+                          ),
+                        ])))
+            : !timeSheetFound
+                ? TimesheetDetails()
+                : Center(
                     child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.symmetric(
-                        vertical: SizeSystem.size12,
-                      ),
-                      decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(SizeSystem.size12),
-                          color: ColorSystem.primaryColor),
-                      child: const Center(
-                          child: Text(
-                        'Upload Timesheet',
-                        style: TextStyle(
-                            color: ColorSystem.white,
-                            fontWeight: FontWeight.bold),
-                      )),
-                    ),
-                    onTap: () {
-                      pickFile();
-                    },
-                  )
-                ],
-              ))),
+                        margin: const EdgeInsets.all(PaddingSystem.padding40),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: PaddingSystem.padding50),
+                              child:
+                                  Image.asset('assets/images/no_timesheet.png'),
+                            ),
+                            const SizedBox(
+                              height: PaddingSystem.padding30,
+                            ),
+                            const Text(
+                              'No Timesheet Found',
+                              style: TextStyle(
+                                  fontSize: SizeSystem.size20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(
+                              height: PaddingSystem.padding20,
+                            ),
+                            const Text(
+                              'You need to upload your timesheets to view them into our systems',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: ColorSystem.gray,
+                                  fontSize: SizeSystem.size14),
+                            ),
+                            const SizedBox(
+                              height: PaddingSystem.padding24,
+                            ),
+                            GestureDetector(
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: SizeSystem.size12,
+                                ),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                        SizeSystem.size12),
+                                    color: ColorSystem.primaryColor),
+                                child: const Center(
+                                    child: Text(
+                                  'Upload Timesheet',
+                                  style: TextStyle(
+                                      color: ColorSystem.white,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                              ),
+                              onTap: () {
+                                pickFile();
+                              },
+                            )
+                          ],
+                        )))
+      ]),
     );
   }
 }
