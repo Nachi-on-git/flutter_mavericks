@@ -196,7 +196,28 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                       const SizedBox(
                         height: 30,
                       ),
+                  
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            'Total working days',
+                            style: TextStyle(
+                                color: ColorSystem.gray.withOpacity(0.6),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text('${widget.projectDetails.totalWorkingDays}',
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30)),
+                        ],
+                      ),
+                          Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
@@ -204,7 +225,7 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                             style: TextStyle(
                                 color: ColorSystem.gray.withOpacity(0.6),
                                 fontWeight: FontWeight.w500,
-                                fontSize: 20),
+                                fontSize: 18),
                           ),
                           const SizedBox(
                             width: 5,
@@ -220,31 +241,11 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            'Total working days',
-                            style: TextStyle(
-                                color: ColorSystem.gray.withOpacity(0.6),
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text('${widget.projectDetails.totalWorkingDays}',
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30)),
-                        ],
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
                             'Extra working days',
                             style: TextStyle(
                                 color: ColorSystem.gray.withOpacity(0.6),
                                 fontWeight: FontWeight.w500,
-                                fontSize: 20),
+                                fontSize: 18),
                           ),
                           const SizedBox(
                             width: 5,

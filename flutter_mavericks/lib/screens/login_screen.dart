@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mavericks/design_system/color_system.dart';
+import 'package:flutter_mavericks/design_system/padding_system.dart';
 import 'package:flutter_mavericks/design_system/scalesystem.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
 import 'package:flutter_mavericks/models/http_response.dart';
@@ -108,9 +109,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 onChanged: (val) {
                   setUserId();
                 },
+                
                 decoration: const InputDecoration(
                   hintText: 'Email',
-                  border: InputBorder.none, // Removes the default border
+                  border: InputBorder.none,
+                 // Removes the default border
                 ),
               ),
             ),

@@ -1,43 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_mavericks/design_system/sizesystem.dart';
-import 'package:flutter_mavericks/screens/timesheets/timesheet.dart';
-import 'package:flutter_mavericks/screens/timesheets/timesheet_details.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_mavericks/screens/apprisals/no_apprisals.dart';
 
-import '../../../design_system/color_system.dart';
-import '../../design_system/padding_system.dart';
-import 'mentees_timesheets.dart';
+import '../../design_system/color_system.dart';
+import '../../widgets/apprisal_card.dart';
+import 'instructions.dart';
 
-class ManagerTimeSheetView extends StatefulWidget {
-  const ManagerTimeSheetView({super.key});
+class Managerappraisals extends StatefulWidget {
+  const Managerappraisals({super.key});
 
   @override
-  State<ManagerTimeSheetView> createState() => _ManagerTimeSheetViewState();
+  State<Managerappraisals> createState() => _ManagerappraisalsState();
 }
 
-class _ManagerTimeSheetViewState extends State<ManagerTimeSheetView>
+class _ManagerappraisalsState extends State<Managerappraisals>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  bool isLoading = false;
-  int id = 0;
-
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
-    // Add a listener to the TabController to listen for tab changes
-    Future.delayed(Duration(milliseconds: 200), () {
-      getId();
-    });
     super.initState();
-  }
-
-  getId() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      id = prefs.getInt('empId') ?? 0;
-      print("id : $id");
-    });
   }
 
   @override
@@ -55,7 +37,7 @@ class _ManagerTimeSheetViewState extends State<ManagerTimeSheetView>
               color: Colors.black,
             )),
         title: const Text(
-          'Timesheets',
+          'Appraisals',
           style: TextStyle(color: Colors.black),
         ),
       ),
@@ -74,7 +56,7 @@ class _ManagerTimeSheetViewState extends State<ManagerTimeSheetView>
                   tabs: const [
                     Tab(
                       child: Text(
-                        'Your Timesheets',
+                        'Your Appraisals',
                         style: TextStyle(
                           color: ColorSystem.primaryColor,
                           fontSize: 14,
@@ -84,7 +66,7 @@ class _ManagerTimeSheetViewState extends State<ManagerTimeSheetView>
                     ), // Title for Tab 1
                     Tab(
                       child: Text(
-                        'Teams Timesheets',
+                        'Teams Appraisals',
                         style: TextStyle(
                           color: ColorSystem.primaryColor,
                           fontSize: 14,
@@ -97,16 +79,32 @@ class _ManagerTimeSheetViewState extends State<ManagerTimeSheetView>
               ),
               SingleChildScrollView(
                   child: SizedBox(
-                height: MediaQuery.of(context).size.height * 3,
+                height: MediaQuery.of(context).size.height,
                 child: TabBarView(controller: _tabController, children: [
-                  Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: Timesheets(
-                        empId: id.toString(),
-                        isEmp: true,
-                      )),
-                  Column(
-                    children: [MenteesTimesheet()],
+                  const Noappraisals(),
+                  Container(
+                    margin: EdgeInsets.all(20),
+                    child: ListView.builder(
+                        itemCount: 1,
+                        shrinkWrap: true,
+                        itemBuilder: ((context, index) {
+                          return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const StartAppraisalInfoScreen()),
+                                );
+                              },
+                              child: const AppraisalsCard(
+                                appraisalYear: '2024',
+                                employeeName: 'Manoj Waghmare',
+                                employeeDesignation: 'Flutter developer',
+                                isResponseSubmitted: true,
+                                isEmp: false,
+                              ));
+                        })),
                   )
                 ]),
               ))

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_mavericks/design_system/sizesystem.dart';
 import 'package:flutter_mavericks/screens/timesheets/timesheet.dart';
 
 import '../../design_system/color_system.dart';
@@ -6,7 +8,9 @@ import '../../design_system/color_system.dart';
 class EmpTimesheet extends StatefulWidget {
   final String empId;
   final bool isEmp;
-  const EmpTimesheet({super.key, required this.empId, required this.isEmp});
+  final String? empName;
+  const EmpTimesheet(
+      {super.key, required this.empId, required this.isEmp, this.empName});
 
   @override
   State<EmpTimesheet> createState() => _EmpTimesheetState();
@@ -15,12 +19,28 @@ class EmpTimesheet extends StatefulWidget {
 class _EmpTimesheetState extends State<EmpTimesheet> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: ColorSystem.white,
+          title: const Text('Timesheets'),
+        ),
         backgroundColor: ColorSystem.white,
-        title: const Text('Timesheets'),
-      ),
-      backgroundColor: ColorSystem.white,
-      body: Timesheets(empId: widget.empId,isEmp: widget.isEmp,));
+        body: SingleChildScrollView(
+            child: Column(children: [
+          Visibility(
+            visible: !widget.isEmp,
+            child: Container(
+              child: Text(
+                '${widget.empName}',
+                style: const TextStyle(
+                    fontSize: SizeSystem.size20, color: ColorSystem.gray),
+              ),
+            ),
+          ),
+          Timesheets(
+            empId: widget.empId,
+            isEmp: widget.isEmp,
+          )
+        ])));
   }
 }

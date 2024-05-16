@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_mavericks/design_system/scalesystem.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
 import 'package:flutter_mavericks/screens/login_screen.dart';
 import 'package:flutter_mavericks/screens/timesheets/emp_timesheet.dart';
-import 'package:flutter_mavericks/screens/timesheets/timesheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/http_response.dart';
 import '../services/auth_services.dart';
+import 'apprisals/emp_apprisals.dart';
+import 'apprisals/manager_apprisals.dart';
 import 'timesheets/manager_timesheet.dart';
 
 class Dashboard extends StatefulWidget {
@@ -111,6 +111,7 @@ class _DashboardState extends State<Dashboard> {
                           builder: (context) => EmpTimesheet(
                                 empId: empId,
                                 isEmp: true,
+                                empName: userName,
                               )),
                     );
                   } else {
@@ -164,41 +165,60 @@ class _DashboardState extends State<Dashboard> {
               const SizedBox(
                 height: SizeSystem.size24,
               ),
-              Container(
-                decoration: BoxDecoration(
+              GestureDetector(
+                onTap: () {
+                  if (empRole == null || empRole != 'employee') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Employeeappraisals(
+                              )),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Managerappraisals()),
+                    );
+                  }
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(SizeSystem.size12),
+                      border:
+                          Border.all(color: Colors.black45.withOpacity(0.3))),
+                  child: ClipRRect(
                     borderRadius: BorderRadius.circular(SizeSystem.size12),
-                    border: Border.all(color: Colors.black45.withOpacity(0.3))),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(SizeSystem.size12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/images/appraisals_dashboard.png',
-                        fit: BoxFit.none,
-                        scale: ScaleSystem.scale2,
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: SizeSystem.size16,
-                            vertical: SizeSystem.size12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Appraisals',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: SizeSystem.size24),
-                            ),
-                            Text(
-                              'Manage & track your appraisals here',
-                              style: TextStyle(fontSize: SizeSystem.size14),
-                            )
-                          ],
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          'assets/images/appraisals_dashboard.png',
+                          fit: BoxFit.none,
+                          scale: ScaleSystem.scale2,
                         ),
-                      ),
-                    ],
+                        const Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: SizeSystem.size16,
+                              vertical: SizeSystem.size12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Appraisals',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: SizeSystem.size24),
+                              ),
+                              Text(
+                                'Manage & track your appraisals here',
+                                style: TextStyle(fontSize: SizeSystem.size14),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               )

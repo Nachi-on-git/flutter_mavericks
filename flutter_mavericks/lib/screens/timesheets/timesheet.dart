@@ -339,7 +339,13 @@ class _TimesheetsState extends State<Timesheets> {
                 Icons.arrow_back_ios,
                 size: SizeSystem.size20,
               )),
-          Text(formattedDate),
+          Text(
+            formattedDate,
+            style: const TextStyle(
+                fontSize: SizeSystem.size14,
+                color: Colors.black,
+                fontWeight: FontWeight.bold),
+          ),
           IconButton(
               onPressed: DateFormat('MM-yyyy').format(DateTime.now()) == month
                   ? null
@@ -389,15 +395,14 @@ class _TimesheetsState extends State<Timesheets> {
                         ),
                       ])))
           : timeSheetFound
-              ? Expanded(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: projectDetails.length,
-                      itemBuilder: ((context, index) {
-                        return TimesheetDetails(
-                            projectDetails: projectDetails[index]);
-                      })))
+              ? ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: projectDetails.length,
+                  itemBuilder: ((context, index) {
+                    return TimesheetDetails(
+                        projectDetails: projectDetails[index]);
+                  }))
               : Center(
                   child: Container(
                       margin: const EdgeInsets.all(PaddingSystem.padding40),
@@ -435,34 +440,32 @@ class _TimesheetsState extends State<Timesheets> {
                           const SizedBox(
                             height: PaddingSystem.padding24,
                           ),
-                          widget.isEmp
-                              ? GestureDetector(
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: SizeSystem.size12,
-                                    ),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            SizeSystem.size12),
-                                        color: ColorSystem.primaryColor),
-                                    child: Center(
-                                        child: Text(
-                                      widget.isEmp
-                                          ? 'Upload Timesheet'
-                                          : 'Request Timesheet',
-                                      style: const TextStyle(
-                                          color: ColorSystem.white,
-                                          fontWeight: FontWeight.bold),
-                                    )),
-                                  ),
-                                  onTap: () {
-                                    if (widget.isEmp) {
-                                      pickFile();
-                                    }
-                                  },
-                                )
-                              : Container()
+                          GestureDetector(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: SizeSystem.size12,
+                              ),
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(SizeSystem.size12),
+                                  color: ColorSystem.primaryColor),
+                              child: Center(
+                                  child: Text(
+                                widget.isEmp
+                                    ? 'Upload Timesheet'
+                                    : 'Request Timesheet',
+                                style: const TextStyle(
+                                    color: ColorSystem.white,
+                                    fontWeight: FontWeight.bold),
+                              )),
+                            ),
+                            onTap: () {
+                              if (widget.isEmp) {
+                                pickFile();
+                              }
+                            },
+                          )
                         ],
                       )))
     ]);
