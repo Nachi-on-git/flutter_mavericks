@@ -45,9 +45,7 @@ class _TimesheetsState extends State<Timesheets> {
   int getDaysWithoutWeekend(DateTime startDate, DateTime endDate) {
     int nbDays = endDate.difference(startDate).inDays + 1;
     List<int> days = List.generate(nbDays, (index) {
-      int weekDay =
-          DateTime(startDate.year, startDate.month, startDate.day + (index))
-              .weekday;
+      int weekDay = DateTime(startDate.year, startDate.month, startDate.day + (index)).weekday;
       if (weekDay != DateTime.saturday && weekDay != DateTime.sunday) {
         return 1;
       }
@@ -69,18 +67,15 @@ class _TimesheetsState extends State<Timesheets> {
           parsedDateTime.year,
           parsedDateTime.month + 1,
         )).duration.inDays;
-    DateTime startDate =
-        DateTime(parsedDateTime.year, parsedDateTime.month, 01);
-    DateTime endDate =
-        DateTime(parsedDateTime.year, parsedDateTime.month, totalDaysInMonths);
+    DateTime startDate = DateTime(parsedDateTime.year, parsedDateTime.month, 01);
+    DateTime endDate = DateTime(parsedDateTime.year, parsedDateTime.month, totalDaysInMonths);
     return getDaysWithoutWeekend(startDate, endDate);
   }
 
   void submitTimesheet() async {
     HttpResponses response;
     if (timesheets.isNotEmpty) {
-      String month =
-          "${dateFormatInput.parse(dates[0].toString()).year}-${dateFormatInput.parse(dates[0].toString()).month}";
+      String month = "${dateFormatInput.parse(dates[0].toString()).year}-${dateFormatInput.parse(dates[0].toString()).month}";
 
       for (var timesheet in timesheets) {
         response = await timesheetService.submitTimesheetDetails({
@@ -112,8 +107,7 @@ class _TimesheetsState extends State<Timesheets> {
   }
 
   void getTimesheet() async {
-    HttpResponses response =
-        await timesheetService.getTimesheetDetails(empId, '2024-02');
+    HttpResponses response = await timesheetService.getTimesheetDetails(empId, '2024-02');
     if (response.status!) {
       var data = response.data;
       print(data);
@@ -125,8 +119,7 @@ class _TimesheetsState extends State<Timesheets> {
           "totalBillableHours": data['totalBillableHours'],
           "totalNonBillableHours": data['totalNonBillableHours'],
           'extraWorkingDays': data['extraWorkingDays'],
-          'totalWorkingHours':
-              data['totalBillableHours'] + data['totalNonBillableHours'],
+          'totalWorkingHours': data['totalBillableHours'] + data['totalNonBillableHours'],
           'totalWorkingDays': data['totalWorkingDays']
         });
         timeSheetFound = true;
@@ -161,32 +154,21 @@ class _TimesheetsState extends State<Timesheets> {
               if (cell.columnIndex == 2) {
                 // add project name
                 if (timesheets.isEmpty) {
-                  timesheets.add(Timesheet.fromJson({
-                    'projectName': value.toString(),
-                    'projectDetails': null
-                  }));
+                  timesheets.add(Timesheet.fromJson({'projectName': value.toString(), 'projectDetails': null}));
                 } else {
-                  Timesheet sheetDetails = timesheets.firstWhere(
-                      (element) => element.projectName == value.toString(),
-                      orElse: () => Timesheet.fromJson(
-                          {'projectName': null, 'projectDetails': null}));
+                  Timesheet sheetDetails = timesheets.firstWhere((element) => element.projectName == value.toString(),
+                      orElse: () => Timesheet.fromJson({'projectName': null, 'projectDetails': null}));
                   if (sheetDetails.projectName == null) {
-                    timesheets.add(Timesheet.fromJson({
-                      'projectName': value.toString(),
-                      'projectDetails': null
-                    }));
+                    timesheets.add(Timesheet.fromJson({'projectName': value.toString(), 'projectDetails': null}));
                   }
                 }
               }
 
               // add hours
-              singleTimesheetDetails = timesheets.firstWhere(
-                  (element) => element.projectName == row[2]!.value.toString(),
-                  orElse: () => Timesheet.fromJson(
-                      {'projectName': null, 'projectDetails': null}));
+              singleTimesheetDetails = timesheets.firstWhere((element) => element.projectName == row[2]!.value.toString(),
+                  orElse: () => Timesheet.fromJson({'projectName': null, 'projectDetails': null}));
               if (cell.columnIndex == 12) {
-                singleTimesheetDetails.projectData.totalWorkingHours +=
-                    double.parse(value.toString());
+                singleTimesheetDetails.projectData.totalWorkingHours += double.parse(value.toString());
               }
 
               // add dates
@@ -203,11 +185,9 @@ class _TimesheetsState extends State<Timesheets> {
               // billing status
               if (cell.columnIndex == 14) {
                 if (value.toString() == 'Non Billable') {
-                  singleTimesheetDetails.projectData.totalNonBillableHours +=
-                      double.parse(row[12]!.value.toString());
+                  singleTimesheetDetails.projectData.totalNonBillableHours += double.parse(row[12]!.value.toString());
                 } else {
-                  singleTimesheetDetails.projectData.totalBillableHours +=
-                      double.parse(row[12]!.value.toString());
+                  singleTimesheetDetails.projectData.totalBillableHours += double.parse(row[12]!.value.toString());
                 }
               }
             }
@@ -253,7 +233,7 @@ class _TimesheetsState extends State<Timesheets> {
                   Icons.arrow_back_ios,
                   size: SizeSystem.size20,
                 )),
-            Text('$formattedDate'),
+            Text(formattedDate),
             IconButton(
                 onPressed: () {},
                 icon: const Icon(
@@ -266,40 +246,32 @@ class _TimesheetsState extends State<Timesheets> {
             ? Center(
                 child: Container(
                     margin: const EdgeInsets.all(PaddingSystem.padding40),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: PaddingSystem.padding50),
-                            child: Image.asset('assets/images/processing.png'),
-                          ),
-                          const SizedBox(
-                            height: PaddingSystem.padding30,
-                          ),
-                          const Text(
-                            'We are processing',
-                            style: TextStyle(
-                                fontSize: SizeSystem.size20,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(
-                            height: PaddingSystem.padding20,
-                          ),
-                          const Text(
-                            'Your timesheet is being processed in our system please wait for a while',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: ColorSystem.gray,
-                                fontSize: SizeSystem.size14),
-                          ),
-                          const SizedBox(
-                            height: PaddingSystem.padding24,
-                          ),
-                        ])))
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center, children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: PaddingSystem.padding50),
+                        child: Image.asset('assets/images/processing.png'),
+                      ),
+                      const SizedBox(
+                        height: PaddingSystem.padding30,
+                      ),
+                      const Text(
+                        'We are processing',
+                        style: TextStyle(fontSize: SizeSystem.size20, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: PaddingSystem.padding20,
+                      ),
+                      const Text(
+                        'Your timesheet is being processed in our system please wait for a while',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: ColorSystem.gray, fontSize: SizeSystem.size14),
+                      ),
+                      const SizedBox(
+                        height: PaddingSystem.padding24,
+                      ),
+                    ])))
             : !timeSheetFound
-                ? TimesheetDetails()
+                ? const TimesheetDetails()
                 : Center(
                     child: Container(
                         margin: const EdgeInsets.all(PaddingSystem.padding40),
@@ -308,19 +280,15 @@ class _TimesheetsState extends State<Timesheets> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(
-                                  left: PaddingSystem.padding50),
-                              child:
-                                  Image.asset('assets/images/no_timesheet.png'),
+                              padding: const EdgeInsets.only(left: PaddingSystem.padding50),
+                              child: Image.asset('assets/images/no_timesheet.png'),
                             ),
                             const SizedBox(
                               height: PaddingSystem.padding30,
                             ),
                             const Text(
                               'No Timesheet Found',
-                              style: TextStyle(
-                                  fontSize: SizeSystem.size20,
-                                  fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: SizeSystem.size20, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(
                               height: PaddingSystem.padding20,
@@ -328,9 +296,7 @@ class _TimesheetsState extends State<Timesheets> {
                             const Text(
                               'You need to upload your timesheets to view them into our systems',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: ColorSystem.gray,
-                                  fontSize: SizeSystem.size14),
+                              style: TextStyle(color: ColorSystem.gray, fontSize: SizeSystem.size14),
                             ),
                             const SizedBox(
                               height: PaddingSystem.padding24,
@@ -341,16 +307,11 @@ class _TimesheetsState extends State<Timesheets> {
                                 padding: const EdgeInsets.symmetric(
                                   vertical: SizeSystem.size12,
                                 ),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(
-                                        SizeSystem.size12),
-                                    color: ColorSystem.primaryColor),
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(SizeSystem.size12), color: ColorSystem.primaryColor),
                                 child: const Center(
                                     child: Text(
                                   'Upload Timesheet',
-                                  style: TextStyle(
-                                      color: ColorSystem.white,
-                                      fontWeight: FontWeight.bold),
+                                  style: TextStyle(color: ColorSystem.white, fontWeight: FontWeight.bold),
                                 )),
                               ),
                               onTap: () {

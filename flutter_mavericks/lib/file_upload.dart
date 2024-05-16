@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:excel/excel.dart';
@@ -23,9 +22,7 @@ class _ExportFileState extends State<ExportFile> {
   int getDaysWithoutWeekend(DateTime startDate, DateTime endDate) {
     int nbDays = endDate.difference(startDate).inDays + 1;
     List<int> days = List.generate(nbDays, (index) {
-      int weekDay =
-          DateTime(startDate.year, startDate.month, startDate.day + (index))
-              .weekday;
+      int weekDay = DateTime(startDate.year, startDate.month, startDate.day + (index)).weekday;
       if (weekDay != DateTime.saturday && weekDay != DateTime.sunday) {
         return 1;
       }
@@ -40,18 +37,15 @@ class _ExportFileState extends State<ExportFile> {
     if (datewiseSorting.isEmpty) {
       return;
     }
-    DateTime parsedDateTime =
-        dateFormatInput.parse(datewiseSorting[0].toString());
+    DateTime parsedDateTime = dateFormatInput.parse(datewiseSorting[0].toString());
     int totalDaysInMonths = DateTimeRange(
         start: DateTime(parsedDateTime.year, parsedDateTime.month, 1),
         end: DateTime(
           parsedDateTime.year,
           parsedDateTime.month + 1,
         )).duration.inDays;
-    DateTime startDate =
-        DateTime(parsedDateTime.year, parsedDateTime.month, 01);
-    DateTime endDate =
-        DateTime(parsedDateTime.year, parsedDateTime.month, totalDaysInMonths);
+    DateTime startDate = DateTime(parsedDateTime.year, parsedDateTime.month, 01);
+    DateTime endDate = DateTime(parsedDateTime.year, parsedDateTime.month, totalDaysInMonths);
     return getDaysWithoutWeekend(startDate, endDate);
   }
 
@@ -77,35 +71,20 @@ class _ExportFileState extends State<ExportFile> {
               if (cell.columnIndex == 2) {
                 // Project name
                 if (timesheet.isEmpty) {
-                  timesheet.add(Timesheet.fromJson({
-                    'projectName': value.toString(),
-                    'projectDetails': null
-                  }));
+                  timesheet.add(Timesheet.fromJson({'projectName': value.toString(), 'projectDetails': null}));
                 } else {
-                  Timesheet details = timesheet.firstWhere(
-                      (element) => element.projectName == value.toString(),
-                      orElse: () => Timesheet.fromJson({
-                            'projectName': value.toString(),
-                            'projectDetails': null
-                          }));
+                  Timesheet details = timesheet.firstWhere((element) => element.projectName == value.toString(),
+                      orElse: () => Timesheet.fromJson({'projectName': value.toString(), 'projectDetails': null}));
                   if (details.projectName == null) {
-                    timesheet.add(Timesheet.fromJson({
-                      'projectName': value.toString(),
-                      'projectDetails': null
-                    }));
+                    timesheet.add(Timesheet.fromJson({'projectName': value.toString(), 'projectDetails': null}));
                   }
                 }
               }
-              projectNameData = timesheet.firstWhere(
-                  (element) => element.projectName == row[2]!.value.toString(),
-                  orElse: () => Timesheet.fromJson({
-                        'projectName': value.toString(),
-                        'projectDetails': null
-                      }));
+              projectNameData = timesheet.firstWhere((element) => element.projectName == row[2]!.value.toString(),
+                  orElse: () => Timesheet.fromJson({'projectName': value.toString(), 'projectDetails': null}));
 
               if (cell.columnIndex == 12) {
-                projectNameData.projectData.totalWorkingHours +=
-                    double.parse(value.toString());
+                projectNameData.projectData.totalWorkingHours += double.parse(value.toString());
               }
               // date
               if (cell.columnIndex == 0) {
@@ -119,11 +98,9 @@ class _ExportFileState extends State<ExportFile> {
               }
               if (cell.columnIndex == 14) {
                 if (value.toString() == 'Non Billable') {
-                  projectNameData.projectData.totalNonBillableHours +=
-                      double.parse(row[12]!.value.toString());
+                  projectNameData.projectData.totalNonBillableHours += double.parse(row[12]!.value.toString());
                 } else {
-                  projectNameData.projectData.totalBillableHours +=
-                      double.parse(row[12]!.value.toString());
+                  projectNameData.projectData.totalBillableHours += double.parse(row[12]!.value.toString());
                 }
               }
             }
@@ -134,8 +111,7 @@ class _ExportFileState extends State<ExportFile> {
         int expectedWorkingDays = getDaysInMonths() ?? 0;
         if (datewiseSorting.length < expectedWorkingDays) {
           for (var data in timesheet) {
-            data.projectData.leaves =
-                expectedWorkingDays - datewiseSorting.length;
+            data.projectData.leaves = expectedWorkingDays - datewiseSorting.length;
           }
         }
       });
@@ -147,7 +123,7 @@ class _ExportFileState extends State<ExportFile> {
     return Scaffold(
       body: Center(
         child: InkWell(
-            child: Text('Upload'),
+            child: const Text('Upload'),
             onTap: () {
               pickFile();
             }),
