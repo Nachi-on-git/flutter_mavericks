@@ -1,18 +1,4 @@
-class Timesheet {
-  String? projectName;
-  ProjectDetails projectData;
 
-  Timesheet({required this.projectName, required this.projectData});
-
-  factory Timesheet.fromJson(Map<String, dynamic> json) {
-    return Timesheet(
-      projectName: json['projectName'] ?? '',
-      projectData: json['projectDetails'] != null
-          ? ProjectDetails.fromJson(json['projectDetails'])
-          : ProjectDetails.fromJson({}),
-    );
-  }
-}
 
 class ProjectDetails {
   double totalBillableHours;

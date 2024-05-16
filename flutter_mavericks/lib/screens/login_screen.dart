@@ -42,6 +42,10 @@ class _LoginScreenState extends State<LoginScreen> {
         context,
         MaterialPageRoute(builder: (context) => const Dashboard()),
       );
+    }else{
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Something went wrong !!"),
+          ));
     }
     setState(() {
       isLoading = false;

@@ -1,52 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mavericks/design_system/padding_system.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_mavericks/models/timehseet.dart';
 
-import '../design_system/color_system.dart';
+import '../../design_system/color_system.dart';
 
 class TimesheetDetails extends StatefulWidget {
-  const TimesheetDetails({super.key});
+  final ProjectDetails projectDetails;
+  const TimesheetDetails({super.key, required this.projectDetails});
 
   @override
   State<TimesheetDetails> createState() => _TimesheetDetailsState();
 }
 
 class _TimesheetDetailsState extends State<TimesheetDetails> {
-  DateTime currentDate = DateTime.now();
-  DateTime? parsedDate;
-  String formattedDate = '';
 
   @override
   void initState() {
-    Future.delayed(Duration(milliseconds: 10), () {
-      formattedDate = DateFormat('MMM yyyy').format(currentDate);
-      print(formattedDate);
-    });
     super.initState();
-  }
-
-  // get total days in months
-  int getDaysInMonths() {
-    // get month count
-    int totalDaysInMonths = DateTimeRange(
-        start: DateTime(currentDate.year, currentDate.month, 1),
-        end: DateTime(
-          currentDate.year,
-          currentDate.month + 1,
-        )).duration.inDays;
-    DateTime startDate = DateTime(currentDate.year, currentDate.month, 01);
-    DateTime endDate =
-        DateTime(currentDate.year, currentDate.month, totalDaysInMonths);
-    return endDate.difference(startDate).inDays + 1;
-  }
-
-  previousMonth() {
-    currentDate.subtract(Duration(days: getDaysInMonths()));
-  }
-
-  nextMonth() {
-    currentDate.add(Duration(days: getDaysInMonths()));
   }
 
   @override
@@ -66,6 +37,7 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                   borderRadius: BorderRadius.circular(15)),
               child: Column(children: [
                 Container(
+                    width: MediaQuery.of(context).size.width,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 20),
                     decoration: const BoxDecoration(
@@ -76,26 +48,15 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Image.asset(
-                              'assets/images/bullet.png',
-                              color: ColorSystem.white,
-                            ),
-                            Text(
-                              'Emp ID',
-                              style: const TextStyle(
-                                  color: ColorSystem.gray,
-                                  fontSize: SizeSystem.size20),
-                            ),
-                          ],
+                        Image.asset(
+                          'assets/images/bullet.png',
+                          color: ColorSystem.white,
                         ),
                         const SizedBox(
                           height: PaddingSystem.padding20,
                         ),
                         Text(
-                          'Project Name',
+                          '${widget.projectDetails.projectName}',
                           textAlign: TextAlign.left,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
@@ -108,11 +69,11 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                     margin: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 15),
                     child: Column(children: [
-                      Row(
+                      const Row(
                         children: [
                           Text(
                             'Total working hours',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: ColorSystem.gray,
                                 fontSize: SizeSystem.size20),
                           ),
@@ -128,7 +89,7 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                               text: TextSpan(children: [
                             WidgetSpan(
                                 child: Text(
-                              '200',
+                              '${widget.projectDetails.totalWorkingHours.toInt()}',
                               style: const TextStyle(
                                   fontSize: 40, fontWeight: FontWeight.bold),
                             )),
@@ -148,7 +109,8 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                         minHeight: 8,
                         backgroundColor: ColorSystem.gray.withOpacity(0.4),
                         color: ColorSystem.primaryColor,
-                        value: 0.4,
+                        value: widget.projectDetails.totalBillableHours /
+                            widget.projectDetails.totalWorkingHours,
                       ),
                       const SizedBox(
                         height: PaddingSystem.padding20,
@@ -184,7 +146,7 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                                             fontSize: 15),
                                       ),
                                       Text(
-                                        '150 Hrs',
+                                        '${widget.projectDetails.totalBillableHours.toInt()} Hrs',
                                         style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 18,
@@ -221,7 +183,7 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                                             fontSize: 15),
                                       ),
                                       Text(
-                                        '150 Hrs',
+                                        '${widget.projectDetails.totalNonBillableHours.toInt()} Hrs',
                                         style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 18,
@@ -247,7 +209,7 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                           const SizedBox(
                             width: 5,
                           ),
-                          Text('2',
+                          Text('${widget.projectDetails.leaves}',
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -267,7 +229,7 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                           const SizedBox(
                             width: 5,
                           ),
-                          Text('0',
+                          Text('${widget.projectDetails.totalWorkingDays}',
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -287,7 +249,7 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                           const SizedBox(
                             width: 5,
                           ),
-                          Text('0',
+                          Text('${widget.projectDetails.extraWorkingDays}',
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,

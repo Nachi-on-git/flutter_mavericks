@@ -3,12 +3,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_mavericks/design_system/scalesystem.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
 import 'package:flutter_mavericks/screens/login_screen.dart';
-import 'package:flutter_mavericks/screens/timesheet.dart';
+import 'package:flutter_mavericks/screens/timesheets/emp_timesheet.dart';
+import 'package:flutter_mavericks/screens/timesheets/timesheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/http_response.dart';
 import '../services/auth_services.dart';
-import 'manager_timesheet.dart';
+import 'timesheets/manager_timesheet.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -22,6 +23,7 @@ class _DashboardState extends State<Dashboard> {
   bool isLoading = false;
   String userName = '';
   String? empRole;
+  String empId = '';
 
   getUserDetails() async {
     setState(() {
@@ -35,8 +37,8 @@ class _DashboardState extends State<Dashboard> {
       setState(() {
         userName = response.data['firstName'];
         empRole = response.data['employeeRole'];
+        empId = response.data['id'].toString();
       });
-      print("user details : ${response.data}");
       prefs.setInt('empId', response.data['id']);
       prefs.setString('employeeRole', response.data['employeeRole']);
     }
@@ -94,7 +96,7 @@ class _DashboardState extends State<Dashboard> {
                           builder: (context) => const LoginScreen(),
                         ));
                       },
-                      icon: Icon(Icons.logout))
+                      icon: const Icon(Icons.logout))
                 ],
               ),
               SizedBox(
@@ -102,18 +104,21 @@ class _DashboardState extends State<Dashboard> {
               ),
               GestureDetector(
                 onTap: () {
-                  if(empRole == null || empRole == 'employee'){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Timesheets()),
-                  );   
-                  }else{
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ManagerTimeSheetView()),
-                  );
+                  if (empRole == null || empRole == 'employee') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EmpTimesheet(
+                                empId: empId,
+                                isEmp: true,
+                              )),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ManagerTimeSheetView()),
+                    );
                   }
                 },
                 child: Container(
@@ -131,13 +136,13 @@ class _DashboardState extends State<Dashboard> {
                           fit: BoxFit.none,
                           scale: ScaleSystem.scale2,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
+                        const Padding(
+                          padding: EdgeInsets.symmetric(
                               horizontal: SizeSystem.size16,
                               vertical: SizeSystem.size12),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
                                 'Timesheet',
                                 style: TextStyle(
@@ -173,13 +178,13 @@ class _DashboardState extends State<Dashboard> {
                         fit: BoxFit.none,
                         scale: ScaleSystem.scale2,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
                             horizontal: SizeSystem.size16,
                             vertical: SizeSystem.size12),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               'Appraisals',
                               style: TextStyle(

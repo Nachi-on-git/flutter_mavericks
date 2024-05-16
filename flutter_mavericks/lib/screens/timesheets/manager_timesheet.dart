@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
-import 'package:flutter_mavericks/screens/timesheet_details.dart';
+import 'package:flutter_mavericks/screens/timesheets/timesheet.dart';
+import 'package:flutter_mavericks/screens/timesheets/timesheet_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../design_system/color_system.dart';
-import '../design_system/padding_system.dart';
+import '../../../design_system/color_system.dart';
+import '../../design_system/padding_system.dart';
+import 'mentees_timesheets.dart';
 
 class ManagerTimeSheetView extends StatefulWidget {
   const ManagerTimeSheetView({super.key});
@@ -18,24 +20,24 @@ class _ManagerTimeSheetViewState extends State<ManagerTimeSheetView>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   bool isLoading = false;
-
-  getMyTimeSheet() async {
-    setState(() {
-      isLoading = true;
-    });
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    setState(() {
-      isLoading = false;
-    });
-  }
+  int id = 0;
 
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     // Add a listener to the TabController to listen for tab changes
-    getMyTimeSheet();
+    Future.delayed(Duration(milliseconds: 200), () {
+      getId();
+    });
     super.initState();
+  }
+
+  getId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      id = prefs.getInt('empId') ?? 0;
+      print("id : $id");
+    });
   }
 
   @override
@@ -93,47 +95,21 @@ class _ManagerTimeSheetViewState extends State<ManagerTimeSheetView>
                   ],
                 ),
               ),
-              SizedBox(
+              SingleChildScrollView(
+                  child: SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child: TabBarView(controller: _tabController, children: [
+                  Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Timesheets(
+                        empId: id.toString(),
+                        isEmp: true,
+                      )),
                   Column(
-                    children: [TimesheetDetails()],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                          margin: const EdgeInsets.all(PaddingSystem.padding20),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: PaddingSystem.padding20,
-                              vertical: PaddingSystem.padding05),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: ColorSystem.gray.withOpacity(0.4)),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        top: PaddingSystem.padding10,
-                                        left: PaddingSystem.padding10,
-                                        right: PaddingSystem.padding10),
-                                    child:
-                                        Image.asset('assets/images/emp.png')),
-                                Text(
-                                  'Nachiket Labade',
-                                  style: TextStyle(
-                                      fontSize: SizeSystem.size20,
-                                      fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ),
-                          ])),
-                    ],
+                    children: [MenteesTimesheet()],
                   )
                 ]),
-              )
+              ))
             ],
           ),
         ),
