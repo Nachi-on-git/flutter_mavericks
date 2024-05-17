@@ -45,24 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: AppBar(
         backgroundColor: ColorSystem.white,
         centerTitle: true,
-        leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              height: 40,
-              width: 40,
-              margin: const EdgeInsets.all(6),
-              decoration: const ShapeDecoration(
-                shape: OvalBorder(
-                  side: BorderSide(width: 1, color: Color(0xFFBEBAB3)),
-                ),
-              ),
-              child: const Icon(
-                Icons.arrow_back_ios_new,
-                color: Colors.black,
-              ),
-            )),
+       
         title: const Text(
           'Settings',
           style: TextStyle(color: Colors.black),
@@ -74,9 +57,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: Image.asset("assets/images/settingImage.png"),
-            ),
             const SizedBox(
               height: 8,
             ),
@@ -116,121 +96,121 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 16, top: 8),
-              child: Text(
-                'Account information',
-                style: TextStyle(
-                  color: Color(0xFF3B3936),
-                  fontSize: 20,
-                  fontFamily: 'Rubik',
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: -0.50,
-                ),
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(width: 1, color: const Color(0xFFBEBAB3)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset("assets/images/profileName.svg"),
-                      const SizedBox(
-                        width: 17,
-                      ),
-                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Name',
-                            style: TextStyle(
-                              color: Color(0xFF3B3936),
-                              fontSize: 20,
-                              fontFamily: 'Rubik',
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: -0.50,
-                            ),
-                          ),
-                          Text(
-                            fullName,
-                            style: const TextStyle(
-                              color: Color(0xFF78746D),
-                              fontSize: 14,
-                              fontFamily: 'Rubik',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  SvgPicture.asset("assets/images/rightArrow.svg")
-                ],
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(width: 1, color: const Color(0xFFBEBAB3)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset("assets/images/emailImage.svg"),
-                      const SizedBox(
-                        width: 17,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Email',
-                            style: TextStyle(
-                              color: Color(0xFF3B3936),
-                              fontSize: 20,
-                              fontFamily: 'Rubik',
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: -0.50,
-                            ),
-                          ),
-                          Text(
-                            email,
-                            style: const TextStyle(
-                              color: Color(0xFF78746D),
-                              fontSize: 14,
-                              fontFamily: 'Rubik',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  SvgPicture.asset("assets/images/rightArrow.svg")
-                ],
-              ),
-            ),
+            // const Padding(
+            //   padding: EdgeInsets.only(left: 16, top: 8),
+            //   child: Text(
+            //     'Account information',
+            //     style: TextStyle(
+            //       color: Color(0xFF3B3936),
+            //       fontSize: 20,
+            //       fontFamily: 'Rubik',
+            //       fontWeight: FontWeight.w500,
+            //       letterSpacing: -0.50,
+            //     ),
+            //   ),
+            // ),
+            // Container(
+            //   width: MediaQuery.of(context).size.width,
+            //   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
+            //   decoration: BoxDecoration(
+            //     color: Colors.white,
+            //     borderRadius: BorderRadius.circular(16),
+            //     border: Border.all(width: 1, color: const Color(0xFFBEBAB3)),
+            //   ),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Row(
+            //         mainAxisSize: MainAxisSize.min,
+            //         mainAxisAlignment: MainAxisAlignment.start,
+            //         crossAxisAlignment: CrossAxisAlignment.center,
+            //         children: [
+            //           SvgPicture.asset("assets/images/profileName.svg"),
+            //           const SizedBox(
+            //             width: 17,
+            //           ),
+            //            Column(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               const Text(
+            //                 'Name',
+            //                 style: TextStyle(
+            //                   color: Color(0xFF3B3936),
+            //                   fontSize: 20,
+            //                   fontFamily: 'Rubik',
+            //                   fontWeight: FontWeight.w500,
+            //                   letterSpacing: -0.50,
+            //                 ),
+            //               ),
+            //               Text(
+            //                 fullName,
+            //                 style: const TextStyle(
+            //                   color: Color(0xFF78746D),
+            //                   fontSize: 14,
+            //                   fontFamily: 'Rubik',
+            //                   fontWeight: FontWeight.w400,
+            //                 ),
+            //               )
+            //             ],
+            //           ),
+            //         ],
+            //       ),
+            //       SvgPicture.asset("assets/images/rightArrow.svg")
+            //     ],
+            //   ),
+            // ),
+            // Container(
+            //   width: MediaQuery.of(context).size.width,
+            //   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            //   decoration: BoxDecoration(
+            //     color: Colors.white,
+            //     borderRadius: BorderRadius.circular(16),
+            //     border: Border.all(width: 1, color: const Color(0xFFBEBAB3)),
+            //   ),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Row(
+            //         mainAxisSize: MainAxisSize.min,
+            //         mainAxisAlignment: MainAxisAlignment.start,
+            //         crossAxisAlignment: CrossAxisAlignment.center,
+            //         children: [
+            //           SvgPicture.asset("assets/images/emailImage.svg"),
+            //           const SizedBox(
+            //             width: 17,
+            //           ),
+            //           Column(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               const Text(
+            //                 'Email',
+            //                 style: TextStyle(
+            //                   color: Color(0xFF3B3936),
+            //                   fontSize: 20,
+            //                   fontFamily: 'Rubik',
+            //                   fontWeight: FontWeight.w500,
+            //                   letterSpacing: -0.50,
+            //                 ),
+            //               ),
+            //               Text(
+            //                 email,
+            //                 style: const TextStyle(
+            //                   color: Color(0xFF78746D),
+            //                   fontSize: 14,
+            //                   fontFamily: 'Rubik',
+            //                   fontWeight: FontWeight.w400,
+            //                 ),
+            //               )
+            //             ],
+            //           ),
+            //         ],
+            //       ),
+            //       SvgPicture.asset("assets/images/rightArrow.svg")
+            //     ],
+            //   ),
+            // ),
             Container(
               width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

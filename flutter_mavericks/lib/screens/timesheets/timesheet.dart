@@ -100,6 +100,9 @@ class _TimesheetsState extends State<Timesheets> {
 
   void submitTimesheet({required String date}) async {
     HttpResponses response;
+    setState(() {
+      processing = true;
+    });
     if (projectDetails.isNotEmpty) {
       for (var timesheet in projectDetails) {
         response = await timesheetService.submitTimesheetDetails({
@@ -136,6 +139,7 @@ class _TimesheetsState extends State<Timesheets> {
         int.parse(widget.empId), month);
     if (response.status!) {
       var data = response.data;
+      projectDetails = [];
       if (data.isNotEmpty && data.length > 0) {
         setState(() {
           for (var details in data) {
@@ -176,9 +180,9 @@ class _TimesheetsState extends State<Timesheets> {
     );
     print("result : $result");
     if (result != null) {
-      // setState(() {
-      //   processing = true;
-      // });
+      setState(() {
+        processing = true;
+      });
       var bytes = File(result.files[0].path!).readAsBytesSync();
       var excelFile = Excel.decodeBytes(bytes);
       ProjectDetails singleTimesheetDetails;
@@ -304,7 +308,6 @@ class _TimesheetsState extends State<Timesheets> {
   nextMonth() {
     setState(() {
       projectDetails = [];
-
       processing = true;
       DateTime nextMonth = dateFormatInput.parse(currentMonth).add(
           Duration(days: getAllDaysInMonths(date: currentMonth.toString())));

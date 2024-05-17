@@ -171,7 +171,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    if (empRole == null || empRole != 'employee') {
+                    if (empRole == null || empRole == 'employee') {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
