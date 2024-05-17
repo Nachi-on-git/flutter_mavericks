@@ -53,7 +53,7 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                           color: ColorSystem.white,
                         ),
                         const SizedBox(
-                          height: PaddingSystem.padding20,
+                          width: 15,
                         ),
                         Text(
                           '${widget.projectDetails.projectName}',
@@ -102,7 +102,7 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                         ],
                       ),
                       const SizedBox(
-                        height: PaddingSystem.padding20,
+                        width: 5,
                       ),
                       LinearProgressIndicator(
                         borderRadius: BorderRadius.circular(10),
@@ -113,7 +113,17 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                             widget.projectDetails.totalWorkingHours,
                       ),
                       const SizedBox(
-                        height: PaddingSystem.padding20,
+                        width: 5,
+                      ),
+                      const Text('0', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30)),
+                    ],
+                  )),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Extra working days',
+                        style: TextStyle(color: ColorSystem.gray.withOpacity(0.6), fontWeight: FontWeight.w500, fontSize: 20),
                       ),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -194,7 +204,7 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                             ),
                           ]),
                       const SizedBox(
-                        height: 30,
+                        width: 5,
                       ),
                   
                       Row(

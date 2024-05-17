@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
 import 'package:flutter_mavericks/screens/timesheets/timesheet.dart';
 import 'package:flutter_mavericks/screens/timesheets/timesheet_details.dart';
@@ -16,8 +15,7 @@ class ManagerTimeSheetView extends StatefulWidget {
   State<ManagerTimeSheetView> createState() => _ManagerTimeSheetViewState();
 }
 
-class _ManagerTimeSheetViewState extends State<ManagerTimeSheetView>
-    with SingleTickerProviderStateMixin {
+class _ManagerTimeSheetViewState extends State<ManagerTimeSheetView> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   bool isLoading = false;
   int id = 0;

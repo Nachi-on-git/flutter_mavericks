@@ -58,8 +58,7 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-              vertical: SizeSystem.size24, horizontal: SizeSystem.size24),
+          padding: const EdgeInsets.symmetric(vertical: SizeSystem.size24, horizontal: SizeSystem.size24),
           child: Column(
             children: [
               Row(
@@ -69,14 +68,13 @@ class _DashboardState extends State<Dashboard> {
                     children: [
                       const Text(
                         'Hello,',
-                        style: TextStyle(
-                            color: Colors.black, fontSize: SizeSystem.size16),
+                        style: TextStyle(color: Colors.black, fontSize: SizeSystem.size16),
                       ),
                       const SizedBox(
                         height: SizeSystem.size8,
                       ),
                       Text(
-                        userName ?? '',
+                        userName,
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: SizeSystem.size32,
@@ -87,8 +85,7 @@ class _DashboardState extends State<Dashboard> {
                   const Spacer(),
                   IconButton(
                       onPressed: () async {
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
                         prefs.remove('empId');
                         prefs.remove('token');
                         prefs.remove('employee_type');
@@ -124,9 +121,7 @@ class _DashboardState extends State<Dashboard> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(SizeSystem.size12),
-                      border:
-                          Border.all(color: Colors.black45.withOpacity(0.3))),
+                      borderRadius: BorderRadius.circular(SizeSystem.size12), border: Border.all(color: Colors.black45.withOpacity(0.3))),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(SizeSystem.size12),
                     child: Column(
@@ -146,9 +141,7 @@ class _DashboardState extends State<Dashboard> {
                             children: [
                               Text(
                                 'Timesheet',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: SizeSystem.size24),
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: SizeSystem.size24),
                               ),
                               Text(
                                 'Get your timesheets powered with HRMS',
