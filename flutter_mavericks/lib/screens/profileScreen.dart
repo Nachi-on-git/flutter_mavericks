@@ -1,10 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../design_system/color_system.dart';
+import '../models/http_response.dart';
+import '../services/auth_services.dart';
+import '../services/shared_preferences.dart';
+import 'login_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  AuthService authService = AuthService();
+  Map<dynamic, dynamic> employeeDetails = {};
+  bool isLoading = false;
+
+
+  getUserDetails() async {
+    setState(() {
+      isLoading = true;
+    });
+    SharedPreferenceService sharedPreferences = SharedPreferenceService();
+    String? token = await sharedPreferences.getUserToken(key: 'token');
+    HttpResponses response = await authService.getUserDetails(token??"");
+    if (response.status!) {
+      employeeDetails = response.data;
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Something went wrong !!"),
+      ));
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    getUserDetails();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +57,7 @@ class ProfileScreen extends StatelessWidget {
         centerTitle: true,
         leading: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              //Navigator.pop(context);
             },
             child: Container(
               height: 40,
@@ -36,7 +78,9 @@ class ProfileScreen extends StatelessWidget {
           style: TextStyle(color: Colors.black),
         ),
       ),
-      body: SingleChildScrollView(
+      body: isLoading?
+          const Center(child: CircularProgressIndicator()):
+      SingleChildScrollView(
         child: Column(
           children: [
             Center(
@@ -63,10 +107,10 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(
                     width: 17,
                   ),
-                  const Column(
+                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Name',
                         style: TextStyle(
                           color: Color(0xFF3B3936),
@@ -77,8 +121,8 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Juana Antonieta',
-                        style: TextStyle(
+                        "${employeeDetails['firstName']??""} ${employeeDetails['lastName']??""}",
+                        style: const TextStyle(
                           color: Color(0xFF78746D),
                           fontSize: 14,
                           fontFamily: 'Rubik',
@@ -108,10 +152,10 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(
                     width: 17,
                   ),
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Email',
                         style: TextStyle(
                           color: Color(0xFF3B3936),
@@ -122,8 +166,8 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'juanita123@gmail.com',
-                        style: TextStyle(
+                        "${employeeDetails['email']??""}",
+                        style: const TextStyle(
                           color: Color(0xFF78746D),
                           fontSize: 14,
                           fontFamily: 'Rubik',
@@ -153,10 +197,10 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(
                     width: 17,
                   ),
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Phone Number',
                         style: TextStyle(
                           color: Color(0xFF3B3936),
@@ -167,8 +211,8 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '1234567889',
-                        style: TextStyle(
+                        "${employeeDetails['phoneNumber']??""}",
+                        style: const TextStyle(
                           color: Color(0xFF78746D),
                           fontSize: 14,
                           fontFamily: 'Rubik',
@@ -198,10 +242,10 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(
                     width: 17,
                   ),
-                  const Column(
+                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Employee Role',
                         style: TextStyle(
                           color: Color(0xFF3B3936),
@@ -212,8 +256,8 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Product Designer',
-                        style: TextStyle(
+                        "${employeeDetails['employeeRole']??""}",
+                        style: const TextStyle(
                           color: Color(0xFF78746D),
                           fontSize: 14,
                           fontFamily: 'Rubik',
@@ -243,10 +287,10 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(
                     width: 17,
                   ),
-                  const Column(
+                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Joining Date',
                         style: TextStyle(
                           color: Color(0xFF3B3936),
@@ -256,9 +300,10 @@ class ProfileScreen extends StatelessWidget {
                           letterSpacing: -0.50,
                         ),
                       ),
+                      if(employeeDetails["joiningDate"] != null)
                       Text(
-                        '25 May 2021',
-                        style: TextStyle(
+                        DateFormat('d MMMM yyyy').format(DateTime.parse("${employeeDetails["joiningDate"]}")),
+                        style: const TextStyle(
                           color: Color(0xFF78746D),
                           fontSize: 14,
                           fontFamily: 'Rubik',
@@ -288,10 +333,10 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(
                     width: 17,
                   ),
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Reporting Manager',
                         style: TextStyle(
                           color: Color(0xFF3B3936),
@@ -302,8 +347,8 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'James David',
-                        style: TextStyle(
+                       "${employeeDetails['reportingManager']??""}",
+                        style: const TextStyle(
                           color: Color(0xFF78746D),
                           fontSize: 14,
                           fontFamily: 'Rubik',
@@ -318,15 +363,27 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            const Center(
-              child: Text(
-                'Log out',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xFF78746D),
-                  fontSize: 14,
-                  fontFamily: 'Rubik',
-                  fontWeight: FontWeight.w500,
+            GestureDetector(
+              onTap: () async {
+                SharedPreferences prefs =
+                    await SharedPreferences.getInstance();
+                prefs.remove('empId');
+                prefs.remove('token');
+                prefs.remove('employee_type');
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                ));
+              },
+              child: const Center(
+                child: Text(
+                  'Log out',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF78746D),
+                    fontSize: 14,
+                    fontFamily: 'Rubik',
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),

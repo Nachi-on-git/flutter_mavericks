@@ -16,8 +16,8 @@ class TimesheetService {
         tokenRequired: true);
   }
 
-  getMenteesTimesheet(String id) async {
+  getMenteesTimesheet(String id, String month) async {
     return await httpService.doGet(
-        path: getMenteeTimesheetApi, params: {'id': id}, tokenRequired: true);
+        path: getMenteeTimesheetApi, params: {'id': id, 'month' : month}, tokenRequired: true);
   }
 }
