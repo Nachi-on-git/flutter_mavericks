@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_mavericks/screens/apprisals/appraisal.dart';
 import 'package:flutter_mavericks/screens/onboarding/splash_screen.dart';
 import 'package:flutter_mavericks/screens/profileScreen.dart';
 import 'config/environment.dart';
