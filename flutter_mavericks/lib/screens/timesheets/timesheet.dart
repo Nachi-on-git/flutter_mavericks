@@ -15,7 +15,8 @@ import 'package:intl/intl.dart';
 class Timesheets extends StatefulWidget {
   final String empId;
   final bool isEmp;
-  const Timesheets({super.key, required this.empId, required this.isEmp});
+  final String empName;
+  const Timesheets({super.key, required this.empId, required this.isEmp,required this.empName});
 
   @override
   State<Timesheets> createState() => _TimesheetsState();
@@ -404,6 +405,8 @@ class _TimesheetsState extends State<Timesheets> {
                   itemCount: projectDetails.length,
                   itemBuilder: ((context, index) {
                     return TimesheetDetails(
+                      empName: widget.empName,
+                      isEmp : widget.isEmp,
                         projectDetails: projectDetails[index]);
                   }))
               : Center(
@@ -468,7 +471,8 @@ class _TimesheetsState extends State<Timesheets> {
                                 pickFile();
                               }
                             },
-                          )
+                          ),
+                          
                         ],
                       )))
     ]);

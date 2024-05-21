@@ -40,6 +40,10 @@ dependencies:
   intl:
   dotted_border:
   flutter_svg:
+  share:
+  pdf:
+  open_file:
+  path_provider:
 
 
 

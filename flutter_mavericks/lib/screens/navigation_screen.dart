@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mavericks/design_system/color_system.dart';
 import 'package:flutter_mavericks/screens/dashboard.dart';
-import 'package:flutter_mavericks/screens/profileScreen.dart';
+import 'package:flutter_mavericks/screens/profile_screen.dart';
 import 'package:flutter_mavericks/screens/settings_screen.dart';
 
 class NavigationScreen extends StatefulWidget {

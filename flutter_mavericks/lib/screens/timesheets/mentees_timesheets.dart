@@ -76,7 +76,7 @@ class _MenteesTimesheetState extends State<MenteesTimesheet> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => EmpTimesheet(
-                                          empId: id.toString(),
+                                          empId: emp['employeeId'].toString(),
                                           isEmp: false,
                                           empName: emp['employeeName'],
                                         )),
