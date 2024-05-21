@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../design_system/color_system.dart';
 import '../../design_system/sizesystem.dart';
 import '../../models/appraisal.dart';
+import '../../models/goals_screen.dart';
 
 class AppraisalScreen extends StatefulWidget {
   const AppraisalScreen({super.key});
@@ -14,6 +14,7 @@ class AppraisalScreen extends StatefulWidget {
 
 class _AppraisalScreenState extends State<AppraisalScreen> {
   int _currentStepIndex = 0;
+  double currentRating = 0;
   final List<AppraisalStep> _steps = [
     AppraisalStep(
       imageUrl: "assets/images/1.png",
@@ -40,11 +41,43 @@ class _AppraisalScreenState extends State<AppraisalScreen> {
       title: "Work Ethic",
       description: "• Believe in teamwork.\n• Accepts responsibility for his/her actions.\n• Can inspire confidence in others.\n• Creates enthusiasm and ensures collaboration amongst team members to attain stated objectives.\n• Participate in people initiatives.",
     ),
+    AppraisalStep(
+      imageUrl: "assets/images/6.png",
+      title: "Professional Conduct",
+      description: "• Establish or expand relationships with key individuals.\n• Assist others in completing their work.\n• Demonstrating professionalism in interactions with clients/peers/team members and others.\n• Approaching problems in a systematic way.\n• Leave/absenteeism management",
+    ),
+    AppraisalStep(
+      imageUrl: "assets/images/7.png",
+      title: "Culture Fit",
+      description: "Rate the associate on our four values, which are:\n• Go Above & Beyond\n• Be Curious\n• Be Relentless\n• Have Fun/ Participation in organisational/team events, initiatives, etc",
+    ),
+    AppraisalStep(
+      imageUrl: "assets/images/8.png",
+      title: "Overall Rating",
+      description: "Based on overall performance of the employee across all the previous points.",
+    ),
   ];
   void _nextStep() {
-    setState(() {
-      _currentStepIndex = (_currentStepIndex + 1) % _steps.length;
-    });
+    if (_currentStepIndex < _steps.length - 1){
+      setState(() {
+        _currentStepIndex = (_currentStepIndex + 1) % _steps.length;
+        currentRating = 0;
+      });
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const GoalsScreen()),
+      );
+    }
+  }
+
+  void _previousStep() {
+    if (_currentStepIndex > 0) {
+      setState(() {
+        _currentStepIndex--;
+        currentRating = 0;
+      });
+    }
   }
 
   @override
@@ -56,7 +89,11 @@ class _AppraisalScreenState extends State<AppraisalScreen> {
         centerTitle: true,
         leading: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              if (_currentStepIndex > 0) {
+                _previousStep();
+              } else {
+                Navigator.pop(context);
+              }
             },
             child: const Icon(
               Icons.arrow_back_ios_new,
@@ -113,6 +150,7 @@ class _AppraisalScreenState extends State<AppraisalScreen> {
                           ),
                         ),
                         const SizedBox(height: SizeSystem.size10,),
+                         (_steps[_currentStepIndex].title != "Overall Rating")?
                          Text(
                           "${_currentStepIndex+1} ${_steps[_currentStepIndex].title}",
                           style: const TextStyle(
@@ -121,9 +159,17 @@ class _AppraisalScreenState extends State<AppraisalScreen> {
                             fontFamily: 'Rubik',
                             fontWeight: FontWeight.w500,
                           ),
-                        ),
+                        ):Text(
+                           _steps[_currentStepIndex].title,
+                           style: const TextStyle(
+                             color: Color(0xFF3B3936),
+                             fontSize: 14,
+                             fontFamily: 'Rubik',
+                             fontWeight: FontWeight.w500,
+                           ),
+                         ),
                         Text(
-                          _steps[_currentStepIndex].description,
+                          _steps[_currentStepIndex].description??"",
                           style: const TextStyle(
                             color: Color(0xFF3B3936),
                             fontSize: 14,
@@ -154,7 +200,7 @@ class _AppraisalScreenState extends State<AppraisalScreen> {
                           ),
                           child: Center(
                             child: RatingBar.builder(
-                              initialRating: 0,
+                              initialRating: currentRating,
                               minRating: 1,
                               direction: Axis.horizontal,
                               allowHalfRating: false,
@@ -165,7 +211,9 @@ class _AppraisalScreenState extends State<AppraisalScreen> {
                                 color: Colors.amber,
                               ),
                               onRatingUpdate: (rating) {
-                                print(rating);
+                                setState(() {
+                                  currentRating = rating;
+                                });
                               },
                               updateOnDrag: true,
                             ),
@@ -185,39 +233,41 @@ class _AppraisalScreenState extends State<AppraisalScreen> {
                           ),
                         ),
                         const SizedBox(height: SizeSystem.size10,),
-                        const Text(
-                          'Please help us with your comment’s ',
-                          style: TextStyle(
-                            color: Color(0xFF3B3936),
-                            fontSize: 14,
-                            fontFamily: 'Rubik',
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 18),
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                          decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              side: const BorderSide(width: 1, color: Color(0xFFE0E8F1)),
-                              borderRadius: BorderRadius.circular(12),
+                        if(_steps[_currentStepIndex].title != "Overall Rating")...[
+                          const Text(
+                            'Please help us with your comment’s ',
+                            style: TextStyle(
+                              color: Color(0xFF3B3936),
+                              fontSize: 14,
+                              fontFamily: 'Rubik',
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                          child: TextFormField(
-                            maxLines: 3,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Your text goes here...',
-                              hintStyle: TextStyle(
-                                color: Color(0xFF8A9BAD),
-                                fontSize: 12,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w400,
+                          Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 18),
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              decoration: ShapeDecoration(
+                                shape: RoundedRectangleBorder(
+                                  side: const BorderSide(width: 1, color: Color(0xFFE0E8F1)),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
                               ),
-                            ),
-                          )
-                        ),
+                              child: TextFormField(
+                                maxLines: 3,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Your text goes here...',
+                                  hintStyle: TextStyle(
+                                    color: Color(0xFF8A9BAD),
+                                    fontSize: 12,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              )
+                          ),
+                        ],
                         InkWell(
                           onTap: _nextStep,
                           child: Container(

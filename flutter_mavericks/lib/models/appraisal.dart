@@ -1,11 +1,13 @@
 class AppraisalStep {
   final String imageUrl;
   final String title;
-  final String description;
+  String? description;
+  String? empType;
 
   AppraisalStep({
     required this.imageUrl,
     required this.title,
-    required this.description,
+    this.description,
+    this.empType
   });
 }

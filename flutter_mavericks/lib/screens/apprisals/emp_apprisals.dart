@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import '../../design_system/color_system.dart';
 import '../../widgets/apprisal_card.dart';
 import 'instructions.dart';
 
-class Employeeappraisals extends StatefulWidget {
-  const Employeeappraisals({super.key});
+class EmployeeAppraisals extends StatefulWidget {
+  final bool appraisalSubmitted;
+  const EmployeeAppraisals({super.key, required this.appraisalSubmitted});
 
   @override
-  State<Employeeappraisals> createState() => _EmployeeappraisalsState();
+  State<EmployeeAppraisals> createState() => _EmployeeAppraisalsState();
 }
 
-class _EmployeeappraisalsState extends State<Employeeappraisals> {
+class _EmployeeAppraisalsState extends State<EmployeeAppraisals> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,11 +33,11 @@ class _EmployeeappraisalsState extends State<Employeeappraisals> {
                 },
                 child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    child: const AppraisalsCard(
+                    child: AppraisalsCard(
                       appraisalYear: '2024',
                       employeeName: 'Manoj Waghmare',
                       employeeDesignation: 'Flutter developer',
-                      isResponseSubmitted: false,
+                      isResponseSubmitted: widget.appraisalSubmitted,
                       isEmp: true,
                     )),
               )
