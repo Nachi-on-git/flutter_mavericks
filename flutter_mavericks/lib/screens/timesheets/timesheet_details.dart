@@ -267,7 +267,7 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                                   fontSize: 30)),
                         ],
                       ),
-                    ])),
+                    ]),
               ])),
         ]));
   }
