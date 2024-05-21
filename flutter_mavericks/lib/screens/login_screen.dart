@@ -9,6 +9,7 @@ import 'package:flutter_mavericks/models/http_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../services/auth_services.dart';
 import 'dashboard.dart';
+import 'navigation_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -41,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
       await prefs.setString('token', response.data['token']);
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const Dashboard()),
+        MaterialPageRoute(builder: (context) => const NavigationScreen()),
       );
     }else{
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

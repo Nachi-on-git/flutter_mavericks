@@ -38,9 +38,9 @@ class _EmpTimesheetState extends State<EmpTimesheet> {
             ),
           ),
           Timesheets(
-            empId: widget.empId,
-            isEmp: widget.isEmp,
-          )
+              empId: widget.empId,
+              isEmp: widget.isEmp,
+              empName: widget.empName!)
         ])));
   }
 }

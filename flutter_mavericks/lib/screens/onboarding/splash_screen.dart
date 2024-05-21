@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../dashboard.dart';
 import '../login_screen.dart';
+import '../navigation_screen.dart';
 import 'onboarding_view.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class SplashScreenState extends State<SplashScreen> {
       print(prefs.getString('token'));
       if (prefs.getString('token') != null) {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const Dashboard(),
+          builder: (context) => const NavigationScreen(),
         ));
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
