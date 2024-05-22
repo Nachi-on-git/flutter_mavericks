@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mavericks/screens/dashboard.dart';
 import '../../design_system/color_system.dart';
 import '../../design_system/sizesystem.dart';
 import 'emp_apprisals.dart';
 
 class AppraisalSubmitScreen extends StatefulWidget {
   const AppraisalSubmitScreen({super.key});
-
 
   @override
   State<AppraisalSubmitScreen> createState() => _AppraisalScState();
@@ -16,7 +16,7 @@ class _AppraisalScState extends State<AppraisalSubmitScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorSystem.white,
-      appBar:  AppBar(
+      appBar: AppBar(
         backgroundColor: ColorSystem.white,
         centerTitle: true,
         leading: GestureDetector(
@@ -40,7 +40,9 @@ class _AppraisalScState extends State<AppraisalSubmitScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset("assets/images/appraisalSubmit.png"),
-              const SizedBox(height: SizeSystem.size32,),
+              const SizedBox(
+                height: SizeSystem.size32,
+              ),
               const Text(
                 'Self Assessment Submitted !! ',
                 textAlign: TextAlign.center,
@@ -51,7 +53,9 @@ class _AppraisalScState extends State<AppraisalSubmitScreen> {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(height: SizeSystem.size8,),
+              const SizedBox(
+                height: SizeSystem.size8,
+              ),
               const Text(
                 'Your response has been recorded and sent to the upper management',
                 textAlign: TextAlign.center,
@@ -62,14 +66,15 @@ class _AppraisalScState extends State<AppraisalSubmitScreen> {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              const SizedBox(height: SizeSystem.size32,),
+              const SizedBox(
+                height: SizeSystem.size32,
+              ),
               InkWell(
-                onTap: (){
-
+                onTap: () {
                   Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => const EmployeeAppraisals(appraisalSubmitted: true,)),
-                        (Route<dynamic> route) => false,
+                    MaterialPageRoute(builder: (context) => const Dashboard()),
+                    (Route<dynamic> route) => false,
                   );
                 },
                 child: Container(
@@ -77,11 +82,15 @@ class _AppraisalScState extends State<AppraisalSubmitScreen> {
                   padding: const EdgeInsets.symmetric(
                     vertical: SizeSystem.size12,
                   ),
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(SizeSystem.size12), color: ColorSystem.primaryColor),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(SizeSystem.size12),
+                      color: ColorSystem.primaryColor),
                   child: const Center(
                     child: Text(
                       'Go back',
-                      style: TextStyle(color: ColorSystem.white, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          color: ColorSystem.white,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
