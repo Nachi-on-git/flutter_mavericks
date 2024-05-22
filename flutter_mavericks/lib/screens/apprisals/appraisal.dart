@@ -3,7 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../design_system/color_system.dart';
 import '../../design_system/sizesystem.dart';
 import '../../models/appraisal.dart';
-import '../../models/goals_screen.dart';
+import 'goals_screen.dart';
 
 class AppraisalScreen extends StatefulWidget {
   const AppraisalScreen({super.key});

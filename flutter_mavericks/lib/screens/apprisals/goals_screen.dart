@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mavericks/screens/apprisals/appraisal_submit_screen.dart';
-import '../design_system/color_system.dart';
-import '../design_system/sizesystem.dart';
-import 'appraisal.dart';
+import '../../design_system/color_system.dart';
+import '../../design_system/sizesystem.dart';
+import '../../models/appraisal.dart';
 
 class GoalsScreen extends StatefulWidget {
   const GoalsScreen({super.key});

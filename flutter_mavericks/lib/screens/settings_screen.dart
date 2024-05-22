@@ -63,7 +63,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(width: 1, color: const Color(0xFFBEBAB3)),
+                border: Border.all(width: 1, color: ColorSystem.greshOrange),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -112,7 +112,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             //   decoration: BoxDecoration(
             //     color: Colors.white,
             //     borderRadius: BorderRadius.circular(16),
-            //     border: Border.all(width: 1, color: const Color(0xFFBEBAB3)),
+            //     border: Border.all(width: 1, color: const ColorSystem.greshOrange),
             //   ),
             //   child: Row(
             //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -163,7 +163,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             //   decoration: BoxDecoration(
             //     color: Colors.white,
             //     borderRadius: BorderRadius.circular(16),
-            //     border: Border.all(width: 1, color: const Color(0xFFBEBAB3)),
+            //     border: Border.all(width: 1, color: const ColorSystem.greshOrange),
             //   ),
             //   child: Row(
             //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -214,7 +214,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(width: 1, color: const Color(0xFFBEBAB3)),
+                border: Border.all(width: 1, color: ColorSystem.greshOrange),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

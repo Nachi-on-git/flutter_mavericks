@@ -78,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(width: 1, color: const Color(0xFFBEBAB3)),
+                border: Border.all(width: 1, color:  ColorSystem.greshOrange),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -95,7 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const Text(
                         'Name',
                         style: TextStyle(
-                          color: Color(0xFF3B3936),
+                          color: ColorSystem.lightOrange,
                           fontSize: 20,
                           fontFamily: 'Rubik',
                           fontWeight: FontWeight.w500,
@@ -123,7 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(width: 1, color: const Color(0xFFBEBAB3)),
+                border: Border.all(width: 1, color:  ColorSystem.greshOrange),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -168,7 +168,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(width: 1, color: const Color(0xFFBEBAB3)),
+                border: Border.all(width: 1, color:  ColorSystem.greshOrange),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -213,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(width: 1, color: const Color(0xFFBEBAB3)),
+                border: Border.all(width: 1, color: ColorSystem.greshOrange),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -258,7 +258,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(width: 1, color: const Color(0xFFBEBAB3)),
+                border: Border.all(width: 1, color:  ColorSystem.greshOrange),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -304,7 +304,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(width: 1, color: const Color(0xFFBEBAB3)),
+                border: Border.all(width: 1, color: ColorSystem.greshOrange),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
