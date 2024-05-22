@@ -4,8 +4,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../dashboard.dart';
 import '../login_screen.dart';
 import '../navigation_screen.dart';
 import 'onboarding_view.dart';
@@ -21,7 +19,6 @@ class SplashScreenState extends State<SplashScreen> {
   Future<void> destination() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getBool('isVisitedOnboarding') == true) {
-      print(prefs.getString('token'));
       if (prefs.getString('token') != null) {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => const NavigationScreen(),

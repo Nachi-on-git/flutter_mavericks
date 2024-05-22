@@ -118,11 +118,13 @@ class _TimesheetsState extends State<Timesheets> {
           "month": month
         });
         if (response.status!) {
+                    // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Timesheet submmited successfully !!"),
           ));
           getTimesheet();
         } else {
+          // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("${response.message}"),
           ));
@@ -165,6 +167,7 @@ class _TimesheetsState extends State<Timesheets> {
         });
       }
     } else {
+                // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("${response.message}"),
       ));
@@ -179,7 +182,7 @@ class _TimesheetsState extends State<Timesheets> {
       type: FileType.any,
       allowMultiple: false,
     );
-    print("result : $result");
+    // print("result : $result");
     if (result != null) {
       setState(() {
         processing = true;
@@ -282,10 +285,11 @@ class _TimesheetsState extends State<Timesheets> {
           submitTimesheet(date: month);
         });
       } catch (error) {
-        print("file error : $error");
+        // print("file error : $error");
         setState(() {
           processing = false;
         });
+                  // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Something wrong with file !!!"),
         ));

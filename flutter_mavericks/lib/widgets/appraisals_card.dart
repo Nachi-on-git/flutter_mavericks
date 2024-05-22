@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
 
@@ -76,6 +76,7 @@ class AppraisalsCard extends StatelessWidget {
                 children: [
                   const SizedBox(height: SizeSystem.size8),
                   InkWell(
+                    // ignore: avoid_print
                     onTap: () => print("object"),
                     child: Container(
                       width: MediaQuery.of(context).size.width,

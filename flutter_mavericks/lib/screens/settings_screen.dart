@@ -3,8 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../design_system/color_system.dart';
-import '../models/http_response.dart';
-import '../services/auth_services.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -25,8 +23,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
    SharedPreferences prefs = await SharedPreferences.getInstance();
    fullName = prefs.getString("fullName")??"";
    email = prefs.getString("email")??"";
-   print(fullName);
-   print("ahgfdgh ${email}");
    setState(() {
      isLoading = false;
    });

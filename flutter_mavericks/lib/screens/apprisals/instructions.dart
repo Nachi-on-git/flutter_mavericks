@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
 
 import '../../design_system/color_system.dart';
+import 'appraisal.dart';
 
 class StartAppraisalInfoScreen extends StatelessWidget {
   const StartAppraisalInfoScreen({super.key});
@@ -116,7 +117,12 @@ class StartAppraisalInfoScreen extends StatelessWidget {
                         const SizedBox(height: SizeSystem.size16),
                         InkWell(
                           onTap: () {
-                            /// TODO start appraisal form on tap of this button
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const AppraisalScreen()
+                              ),
+                            );
                           },
                           child: Container(
                             width: MediaQuery.of(context).size.width,

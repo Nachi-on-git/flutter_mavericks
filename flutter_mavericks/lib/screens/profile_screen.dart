@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../design_system/color_system.dart';
 import '../models/http_response.dart';
 import '../services/auth_services.dart';
 import '../services/shared_preferences.dart';
-import 'login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -33,6 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (response.status!) {
       employeeDetails = response.data;
     }else{
+                // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Something went wrong !!"),
       ));

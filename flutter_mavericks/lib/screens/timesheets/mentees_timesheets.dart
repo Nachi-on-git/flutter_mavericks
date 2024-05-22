@@ -35,7 +35,7 @@ class _MenteesTimesheetState extends State<MenteesTimesheet> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       id = prefs.getInt('empId') ?? 0;
-      print("id : $id");
+      // print("id : $id");
     });
     getAllMentees();
   }
@@ -50,7 +50,7 @@ class _MenteesTimesheetState extends State<MenteesTimesheet> {
           response.data.length > 0) {
         setState(() {
           for (var emp in response.data) {
-            print(emp);
+            // print(emp);
             empList.add(emp);
           }
         });

@@ -32,7 +32,6 @@ class _DashboardState extends State<Dashboard> {
     });
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userToken = prefs.getString('token');
-    print(userToken);
     HttpResponses response = await authService.getUserDetails(userToken ?? '');
     if (response.status!) {
       setState(() {
@@ -80,7 +79,7 @@ class _DashboardState extends State<Dashboard> {
                           height: SizeSystem.size8,
                         ),
                         Text(
-                          userName ?? '',
+                          userName,
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: SizeSystem.size32,
@@ -96,6 +95,7 @@ class _DashboardState extends State<Dashboard> {
                           prefs.remove('empId');
                           prefs.remove('token');
                           prefs.remove('employee_type');
+                                    // ignore: use_build_context_synchronously
                           Navigator.of(context).pushReplacement(MaterialPageRoute(
                             builder: (context) => const LoginScreen(),
                           ));
@@ -175,7 +175,8 @@ class _DashboardState extends State<Dashboard> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Employeeappraisals(
+                            builder: (context) => const EmployeeAppraisals(
+                              appraisalSubmitted: false,
                                 )),
                       );
                     } else {

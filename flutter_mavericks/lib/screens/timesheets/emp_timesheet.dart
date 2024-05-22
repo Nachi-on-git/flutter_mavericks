@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
 import 'package:flutter_mavericks/screens/timesheets/timesheet.dart';
 
@@ -29,12 +28,10 @@ class _EmpTimesheetState extends State<EmpTimesheet> {
             child: Column(children: [
           Visibility(
             visible: !widget.isEmp,
-            child: Container(
-              child: Text(
-                '${widget.empName}',
-                style: const TextStyle(
-                    fontSize: SizeSystem.size20, color: ColorSystem.gray),
-              ),
+            child: Text(
+              '${widget.empName}',
+              style: const TextStyle(
+                  fontSize: SizeSystem.size20, color: ColorSystem.gray),
             ),
           ),
           Timesheets(

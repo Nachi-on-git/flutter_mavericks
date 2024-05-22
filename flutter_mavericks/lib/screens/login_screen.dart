@@ -2,13 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mavericks/design_system/color_system.dart';
-import 'package:flutter_mavericks/design_system/padding_system.dart';
 import 'package:flutter_mavericks/design_system/scalesystem.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
 import 'package:flutter_mavericks/models/http_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../services/auth_services.dart';
-import 'dashboard.dart';
 import 'navigation_screen.dart';
 
 class LoginScreen extends StatefulWidget {

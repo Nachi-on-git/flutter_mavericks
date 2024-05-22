@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mavericks/design_system/sizesystem.dart';
 import 'package:flutter_mavericks/screens/timesheets/timesheet.dart';
-import 'package:flutter_mavericks/screens/timesheets/timesheet_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../design_system/color_system.dart';
-import '../../design_system/padding_system.dart';
 import 'mentees_timesheets.dart';
 
 class ManagerTimeSheetView extends StatefulWidget {
@@ -24,7 +20,7 @@ class _ManagerTimeSheetViewState extends State<ManagerTimeSheetView> with Single
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     // Add a listener to the TabController to listen for tab changes
-    Future.delayed(Duration(milliseconds: 200), () {
+    Future.delayed(const Duration(milliseconds: 200), () {
       getId();
     });
     super.initState();
@@ -34,7 +30,7 @@ class _ManagerTimeSheetViewState extends State<ManagerTimeSheetView> with Single
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       id = prefs.getInt('empId') ?? 0;
-      print("id : $id");
+      // print("id : $id");
     });
   }
 
@@ -98,13 +94,13 @@ class _ManagerTimeSheetViewState extends State<ManagerTimeSheetView> with Single
                 height: MediaQuery.of(context).size.height * 3,
                 child: TabBarView(controller: _tabController, children: [
                   Padding(
-                      padding: EdgeInsets.only(top: 10),
+                      padding: const EdgeInsets.only(top: 10),
                       child: Timesheets(
                         empId: id.toString(),
                         isEmp: true,
                         empName: '',
                       )),
-                  Column(
+                const  Column(
                     children: [MenteesTimesheet()],
                   )
                 ]),
