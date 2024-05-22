@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mavericks/screens/dashboard.dart';
 import '../../design_system/color_system.dart';
 import '../../design_system/sizesystem.dart';
-import 'emp_apprisals.dart';
 
 class AppraisalSubmitScreen extends StatefulWidget {
   const AppraisalSubmitScreen({super.key});

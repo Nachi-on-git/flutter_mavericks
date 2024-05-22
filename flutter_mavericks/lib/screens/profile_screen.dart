@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../design_system/color_system.dart';
 import '../models/http_response.dart';
 import '../services/auth_services.dart';
 import '../services/shared_preferences.dart';
-import 'login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -33,6 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (response.status!) {
       employeeDetails = response.data;
     }else{
+                // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Something went wrong !!"),
       ));
@@ -55,24 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         backgroundColor: ColorSystem.white,
         centerTitle: true,
-        leading: GestureDetector(
-            onTap: () {
-              //Navigator.pop(context);
-            },
-            child: Container(
-              height: 40,
-              width: 40,
-              margin: const EdgeInsets.all(6),
-              decoration: const ShapeDecoration(
-                shape: OvalBorder(
-                  side: BorderSide(width: 1, color: Color(0xFFBEBAB3)),
-                ),
-              ),
-              child: const Icon(
-                Icons.arrow_back_ios_new,
-                color: Colors.black,
-              ),
-            )),
+        
         title: const Text(
           'Profile',
           style: TextStyle(color: Colors.black),
@@ -84,7 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           children: [
             Center(
-              child: SvgPicture.asset("assets/images/profileImage.svg"),
+              child: Image.asset("assets/images/profileImage.png"),
             ),
             const SizedBox(
               height: 8,
@@ -363,30 +345,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const SizedBox(
               height: 8,
             ),
-            GestureDetector(
-              onTap: () async {
-                SharedPreferences prefs =
-                    await SharedPreferences.getInstance();
-                prefs.remove('empId');
-                prefs.remove('token');
-                prefs.remove('employee_type');
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
-                ));
-              },
-              child: const Center(
-                child: Text(
-                  'Log out',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xFF78746D),
-                    fontSize: 14,
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ),
+
           ],
         ),
       ),

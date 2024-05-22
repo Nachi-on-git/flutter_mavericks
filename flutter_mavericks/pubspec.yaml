@@ -41,6 +41,10 @@ dependencies:
   dotted_border:
   flutter_svg:
   flutter_rating_bar: ^4.0.0
+  share:
+  pdf:
+  open_file:
+  path_provider:
 
 
 

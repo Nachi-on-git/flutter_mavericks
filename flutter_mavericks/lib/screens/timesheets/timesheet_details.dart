@@ -1,20 +1,28 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mavericks/design_system/padding_system.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
 import 'package:flutter_mavericks/models/timehseet.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share/share.dart';
 
 import '../../design_system/color_system.dart';
+import 'pdf_creation.dart';
+import 'dart:io' as io;
 
 class TimesheetDetails extends StatefulWidget {
   final ProjectDetails projectDetails;
-  const TimesheetDetails({super.key, required this.projectDetails});
+  final String empName;
+  final bool isEmp;
+  const TimesheetDetails(
+      {super.key, required this.projectDetails, required this.empName, required this.isEmp});
 
   @override
   State<TimesheetDetails> createState() => _TimesheetDetailsState();
 }
 
 class _TimesheetDetailsState extends State<TimesheetDetails> {
-
   @override
   void initState() {
     super.initState();
@@ -48,10 +56,36 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.asset(
-                          'assets/images/bullet.png',
-                          color: ColorSystem.white,
-                        ),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Image.asset(
+                                'assets/images/bullet.png',
+                                color: ColorSystem.white,
+                              ),
+                            Visibility(
+                              visible: !widget.isEmp,
+                              child:   InkWell(
+                                  onTap: () async {
+                                    final appDocDir =
+                                        await getApplicationDocumentsDirectory();
+                                    final appDocPath = appDocDir.path;
+                                    final file = File(
+                                        '$appDocPath/${DateTime.now()}_timesheet.pdf');
+
+                                    await generatePDF(
+                                        empName: widget.empName,
+                                        projectDetails: widget.projectDetails);
+                                    final savedFile = await io.File(file.path)
+                                        .writeAsBytes(await pdf.save());
+                                    await Share.shareFiles([savedFile.path]);
+                                  },
+                                  child: const Icon(
+                                    Icons.share,
+                                    color: ColorSystem.white,
+                                    size: SizeSystem.size30,
+                                  )))
+                            ]),
                         const SizedBox(
                           height: PaddingSystem.padding20,
                         ),
@@ -196,7 +230,6 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                       const SizedBox(
                         height: 30,
                       ),
-                  
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
@@ -217,7 +250,7 @@ class _TimesheetDetailsState extends State<TimesheetDetails> {
                                   fontSize: 30)),
                         ],
                       ),
-                          Row(
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(

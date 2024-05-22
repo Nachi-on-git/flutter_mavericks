@@ -90,7 +90,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     ),
                     const SizedBox(height: SizeSystem.size10,),
                     Text(
-                      _steps[_currentStepIndex].title??"",
+                      _steps[_currentStepIndex].title,
                       style: const TextStyle(
                         color: Color(0xFF3B3936),
                         fontSize: 14,
