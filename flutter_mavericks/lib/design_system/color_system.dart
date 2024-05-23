@@ -7,4 +7,6 @@ class ColorSystem {
   static const Color lightOrange = Color(0xFF3B3936);
   static const Color littleDarkOrange = Color(0xFF78746D);
   static const Color greshOrange = Color(0xFFBEBAB3);
+  static const Color lightGray = Color(0xFFDDD9F4);
+  static const Color borderColor = Color(0xFFCDCDCD);
 }
