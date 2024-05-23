@@ -40,6 +40,8 @@ class _ManagerTimeSheetViewState extends State<ManagerTimeSheetView> with Single
       appBar: AppBar(
         backgroundColor: ColorSystem.white,
         centerTitle: true,
+                elevation: 0,
+
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);

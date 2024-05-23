@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import '../design_system/color_system.dart';
-import '../models/http_response.dart';
-import '../services/auth_services.dart';
-import '../services/shared_preferences.dart';
+import '../../design_system/color_system.dart';
+import '../../models/http_response.dart';
+import '../../services/auth_services.dart';
+import '../../services/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -54,7 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         backgroundColor: ColorSystem.white,
         centerTitle: true,
-        
+        elevation: 0,
         title: const Text(
           'Profile',
           style: TextStyle(color: Colors.black),
@@ -105,7 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Text(
                         "${employeeDetails['firstName']??""} ${employeeDetails['lastName']??""}",
                         style: const TextStyle(
-                          color: Color(0xFF78746D),
+                          color: ColorSystem.littleDarkOrange,
                           fontSize: 14,
                           fontFamily: 'Rubik',
                           fontWeight: FontWeight.w400,
@@ -140,7 +140,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const Text(
                         'Email',
                         style: TextStyle(
-                          color: Color(0xFF3B3936),
+                          color: ColorSystem.lightOrange,
                           fontSize: 20,
                           fontFamily: 'Rubik',
                           fontWeight: FontWeight.w500,
@@ -150,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Text(
                         "${employeeDetails['email']??""}",
                         style: const TextStyle(
-                          color: Color(0xFF78746D),
+                          color: ColorSystem.littleDarkOrange,
                           fontSize: 14,
                           fontFamily: 'Rubik',
                           fontWeight: FontWeight.w400,
@@ -185,7 +185,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const Text(
                         'Phone Number',
                         style: TextStyle(
-                          color: Color(0xFF3B3936),
+                          color: ColorSystem.lightOrange,
                           fontSize: 20,
                           fontFamily: 'Rubik',
                           fontWeight: FontWeight.w500,
@@ -195,7 +195,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Text(
                         "${employeeDetails['phoneNumber']??""}",
                         style: const TextStyle(
-                          color: Color(0xFF78746D),
+                          color: ColorSystem.littleDarkOrange,
                           fontSize: 14,
                           fontFamily: 'Rubik',
                           fontWeight: FontWeight.w400,
@@ -230,7 +230,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const Text(
                         'Employee Role',
                         style: TextStyle(
-                          color: Color(0xFF3B3936),
+                          color: ColorSystem.lightOrange,
                           fontSize: 20,
                           fontFamily: 'Rubik',
                           fontWeight: FontWeight.w500,
@@ -240,7 +240,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Text(
                         "${employeeDetails['employeeRole']??""}",
                         style: const TextStyle(
-                          color: Color(0xFF78746D),
+                          color: ColorSystem.littleDarkOrange,
                           fontSize: 14,
                           fontFamily: 'Rubik',
                           fontWeight: FontWeight.w400,
@@ -275,7 +275,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const Text(
                         'Joining Date',
                         style: TextStyle(
-                          color: Color(0xFF3B3936),
+                          color: ColorSystem.lightOrange,
                           fontSize: 20,
                           fontFamily: 'Rubik',
                           fontWeight: FontWeight.w500,
@@ -286,7 +286,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Text(
                         DateFormat('d MMMM yyyy').format(DateTime.parse("${employeeDetails["joiningDate"]}")),
                         style: const TextStyle(
-                          color: Color(0xFF78746D),
+                          color: ColorSystem.littleDarkOrange,
                           fontSize: 14,
                           fontFamily: 'Rubik',
                           fontWeight: FontWeight.w400,
@@ -321,7 +321,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const Text(
                         'Reporting Manager',
                         style: TextStyle(
-                          color: Color(0xFF3B3936),
+                          color: ColorSystem.lightOrange,
                           fontSize: 20,
                           fontFamily: 'Rubik',
                           fontWeight: FontWeight.w500,
@@ -331,7 +331,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Text(
                        "${employeeDetails['reportingManager']??""}",
                         style: const TextStyle(
-                          color: Color(0xFF78746D),
+                          color: ColorSystem.littleDarkOrange,
                           fontSize: 14,
                           fontFamily: 'Rubik',
                           fontWeight: FontWeight.w400,

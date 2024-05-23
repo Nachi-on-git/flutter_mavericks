@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mavericks/design_system/scalesystem.dart';
 import 'package:flutter_mavericks/design_system/sizesystem.dart';
-import 'package:flutter_mavericks/screens/login_screen.dart';
+import 'package:flutter_mavericks/screens/dashboard/login_screen.dart';
 import 'package:flutter_mavericks/screens/timesheets/emp_timesheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/http_response.dart';
-import '../services/auth_services.dart';
-import 'apprisals/emp_apprisals.dart';
-import 'apprisals/manager_apprisals.dart';
-import 'timesheets/manager_timesheet.dart';
+import '../../models/http_response.dart';
+import '../../services/auth_services.dart';
+import '../appraisals/emp_apprisals.dart';
+import '../appraisals/manager_apprisals.dart';
+import '../timesheets/manager_timesheet.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -24,7 +24,6 @@ class _DashboardState extends State<Dashboard> {
   String userName = '';
   String? empRole;
   String empId = '';
-
 
   getUserDetails() async {
     setState(() {
@@ -42,7 +41,8 @@ class _DashboardState extends State<Dashboard> {
       prefs.setInt('empId', response.data['id']);
       prefs.setString('employeeRole', response.data['employeeRole']);
       prefs.setString('email', response.data['email']);
-      prefs.setString('fullName', "${response.data['firstName']} ${response.data['lastName']}");
+      prefs.setString('fullName',
+          "${response.data['firstName']} ${response.data['lastName']}");
     }
     setState(() {
       isLoading = false;
@@ -95,8 +95,9 @@ class _DashboardState extends State<Dashboard> {
                           prefs.remove('empId');
                           prefs.remove('token');
                           prefs.remove('employee_type');
-                                    // ignore: use_build_context_synchronously
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          // ignore: use_build_context_synchronously
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
                             builder: (context) => const LoginScreen(),
                           ));
                         },
@@ -175,8 +176,9 @@ class _DashboardState extends State<Dashboard> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const EmployeeAppraisals(
-                              appraisalSubmitted: false,
+                            builder: (context) => EmployeeAppraisals(
+                                  appraisalSubmitted: false,
+                                  empId: int.parse(empId),
                                 )),
                       );
                     } else {

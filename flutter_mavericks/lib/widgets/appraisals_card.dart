@@ -64,11 +64,11 @@ class AppraisalsCard extends StatelessWidget {
             Chip(
               avatar: CircleAvatar(
                 radius: SizeSystem.size8,
-                backgroundColor: isResponseSubmitted ? const Color(0xff4A8726) : const Color(0xffFC6D05),
+                backgroundColor: isResponseSubmitted ?  ColorSystem.greenShade :  ColorSystem.orangeShade,
               ),
-              backgroundColor: isResponseSubmitted ? const Color(0xffE0FEC9) : const Color(0xffFEE2C9),
+              backgroundColor: isResponseSubmitted ? const Color(0xffE0FEC9) :  ColorSystem.lightYellow,
               label: isResponseSubmitted ? const Text("Self Assessment Submitted") : const Text("Self Assessment Available"),
-              labelStyle: TextStyle(color: isResponseSubmitted ? const Color(0xff4A8726) : const Color(0xffFC6D05), fontSize: SizeSystem.size12),
+              labelStyle: TextStyle(color: isResponseSubmitted ? ColorSystem.greenShade :  ColorSystem.orangeShade, fontSize: SizeSystem.size12),
             ),
             Visibility(
               visible: !isResponseSubmitted,

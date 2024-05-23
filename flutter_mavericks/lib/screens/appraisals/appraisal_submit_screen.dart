@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mavericks/screens/dashboard.dart';
+import 'package:flutter_mavericks/screens/dashboard/dashboard.dart';
 import '../../design_system/color_system.dart';
 import '../../design_system/sizesystem.dart';
 
@@ -18,6 +18,7 @@ class _AppraisalScState extends State<AppraisalSubmitScreen> {
       appBar: AppBar(
         backgroundColor: ColorSystem.white,
         centerTitle: true,
+                elevation: 0,
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -46,7 +47,7 @@ class _AppraisalScState extends State<AppraisalSubmitScreen> {
                 'Self Assessment Submitted !! ',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Color(0xFF3B3936),
+                  color: ColorSystem.lightOrange,
                   fontSize: 24,
                   fontFamily: 'Rubik',
                   fontWeight: FontWeight.w500,
@@ -59,7 +60,7 @@ class _AppraisalScState extends State<AppraisalSubmitScreen> {
                 'Your response has been recorded and sent to the upper management',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Color(0xFF78746D),
+                  color: ColorSystem.littleDarkOrange,
                   fontSize: 14,
                   fontFamily: 'Rubik',
                   fontWeight: FontWeight.w400,

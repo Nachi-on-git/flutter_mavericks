@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mavericks/screens/apprisals/appraisal_submit_screen.dart';
+import 'package:flutter_mavericks/screens/appraisals/appraisal_submit_screen.dart';
 import '../../design_system/color_system.dart';
 import '../../design_system/sizesystem.dart';
 import '../../models/appraisal.dart';
@@ -44,6 +44,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
       appBar:  AppBar(
         backgroundColor: ColorSystem.white,
         centerTitle: true,
+                elevation: 0,
+
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -92,7 +94,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     Text(
                       _steps[_currentStepIndex].title,
                       style: const TextStyle(
-                        color: Color(0xFF3B3936),
+                        color: ColorSystem.lightOrange,
                         fontSize: 14,
                         fontFamily: 'Rubik',
                         fontWeight: FontWeight.w500,
@@ -102,7 +104,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     const Text(
                       'Goal 1*',
                       style: TextStyle(
-                        color: Color(0xFF3B3936),
+                        color: ColorSystem.lightOrange,
                         fontSize: 12,
                         fontFamily: 'Rubik',
                         fontWeight: FontWeight.w500,
@@ -134,7 +136,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     const Text(
                       'Goal 2*',
                       style: TextStyle(
-                        color: Color(0xFF3B3936),
+                        color: ColorSystem.lightOrange,
                         fontSize: 12,
                         fontFamily: 'Rubik',
                         fontWeight: FontWeight.w500,
@@ -166,7 +168,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     const Text(
                       'Goal 3*',
                       style: TextStyle(
-                        color: Color(0xFF3B3936),
+                        color: ColorSystem.lightOrange,
                         fontSize: 12,
                         fontFamily: 'Rubik',
                         fontWeight: FontWeight.w500,
@@ -198,7 +200,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     const Text(
                       'Goal 4*',
                       style: TextStyle(
-                        color: Color(0xFF3B3936),
+                        color: ColorSystem.lightOrange,
                         fontSize: 12,
                         fontFamily: 'Rubik',
                         fontWeight: FontWeight.w500,

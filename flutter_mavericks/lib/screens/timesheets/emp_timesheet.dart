@@ -22,6 +22,8 @@ class _EmpTimesheetState extends State<EmpTimesheet> {
         appBar: AppBar(
           backgroundColor: ColorSystem.white,
           title: const Text('Timesheets'),
+                  elevation: 0,
+
         ),
         backgroundColor: ColorSystem.white,
         body: SingleChildScrollView(

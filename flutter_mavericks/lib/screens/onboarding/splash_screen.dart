@@ -4,8 +4,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../login_screen.dart';
-import '../navigation_screen.dart';
+import '../dashboard/login_screen.dart';
+import '../dashboard/navigation_screen.dart';
 import 'onboarding_view.dart';
 
 class SplashScreen extends StatefulWidget {

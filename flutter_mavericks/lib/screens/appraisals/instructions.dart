@@ -14,6 +14,8 @@ class StartAppraisalInfoScreen extends StatelessWidget {
       appBar:  AppBar(
         backgroundColor: ColorSystem.white,
         centerTitle: true,
+                elevation: 0,
+
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -59,7 +61,7 @@ class StartAppraisalInfoScreen extends StatelessWidget {
                           style: TextStyle(
                             fontSize: SizeSystem.size16,
                             fontWeight: FontWeight.w500,
-                            color: Color(0xff000000),
+                            color: Colors.black,
                           ),
                         ),
                         const SizedBox(height: SizeSystem.size2),
@@ -68,7 +70,7 @@ class StartAppraisalInfoScreen extends StatelessWidget {
                           style: TextStyle(
                             fontSize: SizeSystem.size12,
                             fontWeight: FontWeight.w500,
-                            color: const Color(0xff000000).withOpacity(.6),
+                            color:  Colors.black.withOpacity(.6),
                           ),
                         ),
                         const SizedBox(height: SizeSystem.size6),

@@ -85,6 +85,8 @@ class _AppraisalScreenState extends State<AppraisalScreen> {
     return Scaffold(
       backgroundColor: ColorSystem.white,
       appBar:  AppBar(
+                elevation: 0,
+
         backgroundColor: ColorSystem.white,
         centerTitle: true,
         leading: GestureDetector(
@@ -154,7 +156,7 @@ class _AppraisalScreenState extends State<AppraisalScreen> {
                          Text(
                           "${_currentStepIndex+1} ${_steps[_currentStepIndex].title}",
                           style: const TextStyle(
-                            color: Color(0xFF3B3936),
+                            color: ColorSystem.lightOrange,
                             fontSize: 14,
                             fontFamily: 'Rubik',
                             fontWeight: FontWeight.w500,
@@ -162,7 +164,7 @@ class _AppraisalScreenState extends State<AppraisalScreen> {
                         ):Text(
                            _steps[_currentStepIndex].title,
                            style: const TextStyle(
-                             color: Color(0xFF3B3936),
+                             color: ColorSystem.lightOrange,
                              fontSize: 14,
                              fontFamily: 'Rubik',
                              fontWeight: FontWeight.w500,
@@ -171,7 +173,7 @@ class _AppraisalScreenState extends State<AppraisalScreen> {
                         Text(
                           _steps[_currentStepIndex].description??"",
                           style: const TextStyle(
-                            color: Color(0xFF3B3936),
+                            color: ColorSystem.lightOrange,
                             fontSize: 14,
                             fontFamily: 'Rubik',
                             fontWeight: FontWeight.w400,
@@ -181,7 +183,7 @@ class _AppraisalScreenState extends State<AppraisalScreen> {
                         const Text(
                           'Please provide your ratings below',
                           style: TextStyle(
-                            color: Color(0xFF3B3936),
+                            color: ColorSystem.lightOrange,
                             fontSize: 14,
                             fontFamily: 'Rubik',
                             fontWeight: FontWeight.w500,
@@ -237,7 +239,7 @@ class _AppraisalScreenState extends State<AppraisalScreen> {
                           const Text(
                             'Please help us with your comment’s ',
                             style: TextStyle(
-                              color: Color(0xFF3B3936),
+                              color: ColorSystem.lightOrange,
                               fontSize: 14,
                               fontFamily: 'Rubik',
                               fontWeight: FontWeight.w500,

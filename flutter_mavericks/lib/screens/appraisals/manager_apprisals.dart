@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mavericks/screens/apprisals/no_apprisals.dart';
+import 'package:flutter_mavericks/screens/appraisals/no_apprisals.dart';
 
 import '../../design_system/color_system.dart';
 import '../../widgets/apprisal_card.dart';
@@ -27,6 +27,8 @@ class _ManagerappraisalsState extends State<Managerappraisals>
       appBar: AppBar(
         backgroundColor: ColorSystem.white,
         centerTitle: true,
+                elevation: 0,
+
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -101,7 +103,7 @@ class _ManagerappraisalsState extends State<Managerappraisals>
                                 employeeName: 'Manoj Waghmare',
                                 employeeDesignation: 'Flutter developer',
                                 isResponseSubmitted: true,
-                                isEmp: false,
+                                isEmp: false, 
                               ));
                         })),
                   )

@@ -66,21 +66,21 @@ class AppraisalsCard extends StatelessWidget {
               avatar: CircleAvatar(
                 radius: SizeSystem.size8,
                 backgroundColor: isResponseSubmitted
-                    ? const Color(0xff4A8726)
-                    : const Color(0xffFC6D05),
+                    ?  ColorSystem.greenShade
+                    :  ColorSystem.orangeShade,
               ),
               shape: const StadiumBorder(
                   side: BorderSide(color: Colors.transparent)),
               backgroundColor: isResponseSubmitted
                   ? const Color(0xffE0FEC9)
-                  : const Color(0xffFEE2C9),
+                  :  ColorSystem.lightYellow,
               label: isResponseSubmitted
                   ? const Text("Self Assessment Submitted")
                   : const Text("Self Assessment Available"),
               labelStyle: TextStyle(
                   color: isResponseSubmitted
-                      ? const Color(0xff4A8726)
-                      : const Color(0xffFC6D05),
+                      ?  ColorSystem.greenShade
+                      :  ColorSystem.orangeShade,
                   fontSize: SizeSystem.size12),
             ),
             Visibility(
@@ -88,14 +88,14 @@ class AppraisalsCard extends StatelessWidget {
               child: const Chip(
                 avatar: CircleAvatar(
                   radius: SizeSystem.size8,
-                  backgroundColor: Color(0xffFC6D05),
+                  backgroundColor: ColorSystem.orangeShade,
                 ),
                 shape:
                     StadiumBorder(side: BorderSide(color: Colors.transparent)),
-                backgroundColor: Color(0xffFEE2C9),
+                backgroundColor: ColorSystem.lightYellow,
                 label: Text("Leader Assessment Available"),
                 labelStyle: TextStyle(
-                    color: Color(0xffFC6D05), fontSize: SizeSystem.size12),
+                    color: ColorSystem.orangeShade, fontSize: SizeSystem.size12),
               ),
             ),
             Column(

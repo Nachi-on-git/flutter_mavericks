@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mavericks/screens/login_screen.dart';
+import 'package:flutter_mavericks/screens/dashboard/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../design_system/color_system.dart';
 import '../../design_system/scalesystem.dart';
